@@ -1,6 +1,12 @@
 # ANNarchy tutorial
 
-See the sildes at <https://annarchy.github.io/ANNarchy-tutorial>
+This tutorial presents the neuro-simulator ANNarchy (Artificial Neural Networks architect):
+
+<https://github.com/ANNarchy/ANNarchy>
+
+The slides are available at: 
+
+<https://annarchy.github.io/ANNarchy-tutorial>.
 
 
 
@@ -14,7 +20,7 @@ The repository should be cloned with all its submodules:
 git clone --recursive https://github.com/ANNarchy/ANNarchy-tutorial.git
 ```
 
-This package provides the basic files to generate a HTML5 + reveal.js presentation from Markdown code using `pandoc`. `pandoc` of course needs to be installed. 
+This package allows to generate a HTML5 + reveal.js presentation from Markdown using `pandoc`. `pandoc` of course needs to be installed. 
 
 To generate the html file:
 

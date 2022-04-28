@@ -3,7 +3,7 @@ title: ANNarchy
 subtitle: Artificial Neural Networks architect
 author: Julien Vitay, Helge Ülo Dinkelbach, Fred Hamker
 
-date: Professur für Künstliche Intelligenz, Fakultät für Informatik
+#date: Professur für Künstliche Intelligenz, Fakultät für Informatik
 
 
 logo: img/tuc-new.png
