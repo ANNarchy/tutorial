@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <meta name="author" content="Author name">
-  <title>Title of the presentation</title>
+  <meta name="author" content="Julien Vitay, Helge Ülo Dinkelbach, Fred Hamker">
+  <title>ANNarchy</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -15,6 +15,71 @@
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style>
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="./assets/reveal.js/css/theme/white.css" id="theme">
   <link rel="stylesheet" href="./assets/simple.css"/>
@@ -36,25 +101,1113 @@
 
 <section>
     <figure>
-    <img src="img/tuc-new.png" style="width:35%;" />
+    <img src="img/tuc-new.png" style="width:35%; margin-bottom: 1em;" />
   </figure>
-    <h1 class="title">Title of the presentation</h1>
-  <p class="subtitle">Subtitle</p>
-  <p class="author">Author name</p>
-  <p class="date">Institution</p>
+    <h1 class="title">ANNarchy</h1>
+  <p class="subtitle">Artificial Neural Networks architect</p>
+  <p class="author">Julien Vitay, Helge Ülo Dinkelbach, Fred Hamker</p>
 </section>
 
-<section id="first-slide" class="slide level1">
-<h1>First slide</h1>
+<section id="from-neural-mass-models-to-detailed-microcircuits-and-back"
+class="slide level1">
+<h1>From neural mass models to detailed microcircuits and back</h1>
 <ul>
-<li>Test</li>
+<li><p>Neural mass models approximate the dynamics of thousands of
+neurons with a couple of differential equations.</p></li>
+<li><p>Detailed computational models at the neuronal and synaptic levels
+can provide insights on local dynamics and synaptic plasticity.</p></li>
 </ul>
-<p><span class="math display">\[\dfrac{a}{b} = 2\]</span></p>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:55%; float: left;">
+<p><img data-src="img/neuralmass.jpg" /></p>
+
+    <p class=citation>
+         Gast R, Rose D, Salomon C, Möller HE, Weiskopf N, Knösche TR. 2019. PyRates—A Python framework for rate-based neural simulations. PLOS ONE 14:e0225900. doi:10.1371/journal.pone.0225900
+    </p>
+    
+        </div>
+        <div style="width:45%; float:right;">
+<p><img data-src="img/column.jpg" /></p>
+
+    <p class=citation>
+         Source Oberlaender et al. http://www.neuroinformatics2012.org/abstracts/beyond-the-cortical-column-2013-structural-organization-principles-in-rat-vibrissal-cortex.html
+    </p>
+    
+        </div>
+      </div>
+    </div>
 </section>
-<section id="second-slide" class="slide level1">
-<h1>Second slide</h1>
+<section id="rate-coded-and-spiking-neurons" class="slide level1">
+<h1>Rate-coded and spiking neurons</h1>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:40%; float: left;">
 <ul>
-<li>Test</li>
+<li><strong>Rate-coded</strong> neurons only represent the instantaneous
+firing rate of a neuron:</li>
+</ul>
+<p><span class="math display">\[
+    \tau \, \frac{d v(t)}{dt} + v(t) = \sum_{i=1}^d w_{i, j} \, r_i(t) +
+b
+\]</span></p>
+<p><span class="math display">\[
+    r(t) = f(v(t))
+\]</span></p>
+<p><img data-src="img/ratecoded-simple.png" style="width:100.0%" /></p>
+        </div>
+        <div style="width:60%; float:right;">
+<ul>
+<li><strong>Spiking</strong> neurons emit binary spikes when their
+membrane potential exceeds a threshold (leaky integrate-and-fire,
+LIF):</li>
+</ul>
+<p><span class="math display">\[
+    C \, \frac{d v(t)}{dt} = - g_L \, (v(t) - V_L) + I(t)
+\]</span></p>
+<p><span class="math display">\[
+    \text{if} \; v(t) &gt; V_T \; \text{emit a spike and reset.}
+\]</span></p>
+<p><img data-src="img/LIF-threshold.png" /></p>
+        </div>
+      </div>
+    </div>
+</section>
+<section id="several-spiking-neuron-models-are-possible"
+class="slide level1">
+<h1>Several spiking neuron models are possible</h1>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:40%; float: left;">
+<ul>
+<li>Izhikevich quadratic IF (Izhikevich, 2003).</li>
+</ul>
+<p><span class="math display">\[\begin{cases}
+    \displaystyle\frac{dv}{dt} = 0.04 \, v^2 + 5 \, v + 140 - u + I \\
+    \\
+    \displaystyle\frac{du}{dt} = a \, (b \, v - u) \\
+\end{cases}\]</span></p>
+        </div>
+        <div style="width:55%; float:right;">
+<ul>
+<li>Adaptive exponential IF (AdEx, Brette and Gerstner, 2005).</li>
+</ul>
+<p><span class="math display">\[
+\begin{cases}
+\begin{aligned}
+    C \, \frac{dv}{dt} = -g_L \ (v - E_L) + &amp; g_L \, \Delta_T \,
+\exp(\frac{v - v_T}{\Delta_T}) \\
+                                            &amp; + I - w
+\end{aligned}\\
+\\
+    \tau_w \, \displaystyle\frac{dw}{dt} = a \, (v - E_L) - w\\
+\end{cases}\]</span></p>
+        </div>
+      </div>
+    </div>
+<p><img data-src="img/LIF-Izhi-AdEx.png" /></p>
+</section>
+<section
+id="realistic-neuron-models-can-reproduce-a-variety-of-dynamics"
+class="slide level1">
+<h1>Realistic neuron models can reproduce a variety of dynamics</h1>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:65%; float: left;">
+<p><img data-src="img/adex.png" /></p>
+        </div>
+        <div style="width:35%; float:right;">
+<ul>
+<li><p>Biological neurons do not all respond the same to an input
+current.</p>
+<ul>
+<li><p>Some fire regularly.</p></li>
+<li><p>Some slow down with time.</p></li>
+<li><p>Some emit bursts of spikes.</p></li>
+</ul></li>
+<li><p>Modern spiking neuron models allow to recreate these dynamics by
+changing a few parameters.</p></li>
+</ul>
+        </div>
+      </div>
+    </div>
+</section>
+<section id="populations-of-neurons" class="slide level1">
+<h1>Populations of neurons</h1>
+<ul>
+<li>Recurrent neural networks (e.g. randomly connected populations of
+neurons) can exhibit very rich <strong>dynamics</strong> even in the
+absence of inputs:</li>
+</ul>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:50%; float: left;">
+<p><img data-src="img/rc-network.jpg" /></p>
+<p><img data-src="img/reservoir-simple.png" style="width:70.0%" /></p>
+        </div>
+        <div style="width:50%; float:right;">
+<ul>
+<li><p>Oscillations at the population level.</p></li>
+<li><p>Excitatory/inhibitory balance.</p></li>
+<li><p>Spatio-temporal separation of inputs (<strong>reservoir
+computing</strong>).</p></li>
+</ul>
+<p><img data-src="img/ratecoded-izhikevich.png"
+style="width:70.0%" /></p>
+        </div>
+      </div>
+    </div>
+</section>
+<section id="synaptic-plasticity-hebbian-learning" class="slide level1">
+<h1>Synaptic plasticity: Hebbian learning</h1>
+<ul>
+<li><strong>Hebbian learning</strong> postulates that synapses
+strengthen based on the <strong>correlation</strong> between the
+activity of the pre- and post-synaptic neurons:</li>
+</ul>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:80%; float: left;">
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:33%; float: left;">
+        </div>
+        <div style="width:66%; float:right;">
+<p>When an axon of cell A is near enough to excite a cell B and
+repeatedly or persistently takes part in firing it, some growth process
+or metabolic change takes place in one or both cells such that A’s
+efficiency, as one of the cells firing B, is increased.</p>
+<p><strong>Donald Hebb</strong>, 1949</p>
+        </div>
+      </div>
+    </div>
+        </div>
+        <div style="width:20%; float:right;">
+        </div>
+      </div>
+    </div>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:70%; float: left;">
+<p><img data-src="img/hebb.png" /></p>
+        </div>
+        <div style="width:30%; float:right;">
+<ul>
+<li>Weights increase proportionally to the the product of the pre.- and
+post-synaptic firing rates:</li>
+</ul>
+<p><span class="math display">\[\frac{dw}{dt} = \eta \, r^\text{pre} \,
+r^\text{post}\]</span></p>
+        </div>
+      </div>
+    </div>
+
+    <p class=citation>
+         Source: https://slideplayer.com/slide/11511675/
+    </p>
+    
+</section>
+<section id="synaptic-plasticity-hebbian-based-learning"
+class="slide level1">
+<h1>Synaptic plasticity: Hebbian-based learning</h1>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:70%; float: left;">
+<ul>
+<li>The <strong>BCM</strong> (Bienenstock, Cooper, and Munro 1982,
+Intrator and Cooper, 1992) plasticity rule allows LTP and LTD depending
+on the post-synaptic plasticity:</li>
+</ul>
+<p><span class="math display">\[\frac{dw}{dt} = \eta \, r^\text{pre} \,
+r^\text{post}  \,  (r^\text{post} -
+\mathbb{E}((r^\text{post})^2))\]</span></p>
+<ul>
+<li><strong>Covariance</strong> learning rule:</li>
+</ul>
+<p><span class="math display">\[\frac{dw}{dt} = \eta \, r^\text{pre} \,
+(r^\text{post} - \mathbb{E}(r^\text{post}))\]</span></p>
+<ul>
+<li><strong>Oja</strong> learning rule (Oja, 1982):</li>
+</ul>
+<p><span class="math display">\[\frac{dw}{dt}= \eta \, r^\text{pre} \,
+r^\text{post} - \alpha \, (r^\text{post})^2 \, w\]</span></p>
+        </div>
+        <div style="width:30%; float:right;">
+<p><img data-src="img/bcm.png" /></p>
+
+    <p class=citation>
+         Source: http://www.scholarpedia.org/article/BCM_theory
+    </p>
+    
+        </div>
+      </div>
+    </div>
+<ul>
+<li>Or anything depending only on the pre- and post-synaptic firing
+rates and possibly neuromodulators, e.g. (Vitay and Hamker, 2010):</li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+    \frac{dw}{dt}  &amp; = \eta \, ( \text{DA}(t) -
+\overline{\text{DA}}) \, (r^\text{post} - \mathbb{E}(r^\text{post})
+)^+  \, (r^\text{pre} - \mathbb{E}(r^\text{pre}))- \alpha(t)
+\,  ((r^\text{post} - \mathbb{E}(r^\text{post} )^+ )^2  \, w
+\end{aligned}\]</span></p>
+</section>
+<section id="stdp-spike-timing-dependent-plasticity"
+class="slide level1">
+<h1>STDP: Spike-timing dependent plasticity</h1>
+<ul>
+<li><p>Synaptic efficiencies actually evolve depending on the the
+<strong>causation</strong> between the neuron’s firing patterns:</p>
+<ul>
+<li><p>If the pre-synaptic neuron fires <strong>before</strong> the
+post-synaptic one, the weight is increased (<strong>long-term
+potentiation</strong>). Pre causes Post to fire.</p></li>
+<li><p>If it fires <strong>after</strong>, the weight is decreased
+(<strong>long-term depression</strong>). Pre does not cause Post to
+fire.</p></li>
+</ul></li>
+</ul>
+<p><img data-src="img/stdp.jpg" style="width:70.0%" /></p>
+
+    <p class=citation>
+         Bi, G. and Poo, M. (2001). Synaptic modification of correlated activity: Hebb’s postulate revisited. Ann. Rev. Neurosci., 24:139-166.
+    </p>
+    
+</section>
+<section id="stdp-spike-timing-dependent-plasticity-1"
+class="slide level1">
+<h1>STDP: Spike-timing dependent plasticity</h1>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:50%; float: left;">
+<ul>
+<li>The STDP (spike-timing dependent plasticity) plasticity rule
+describes how the weight of a synapse evolves when the pre-synaptic
+neuron fires at <span class="math inline">\(t_\text{pre}\)</span> and
+the post-synaptic one fires at <span
+class="math inline">\(t_\text{post}\)</span>.</li>
+</ul>
+<p><span class="math display">\[ \frac{dw}{dt} = \begin{cases} A^+ \,
+\exp - \frac{t_\text{pre} - t_\text{post}}{\tau^+} \; \text{if} \;
+t_\text{post} &gt; t_\text{pre}\\  
+    \\
+    A^- \, \exp - \frac{t_\text{pre} - t_\text{post}}{\tau^-} \;
+\text{if} \; t_\text{pre} &gt; t_\text{post}\\ \end{cases}\]</span></p>
+<ul>
+<li><p>STDP can be implemented online using traces.</p></li>
+<li><p>More complex variants of STDP (triplet STDP) exist, but this is
+the main model of synaptic plasticity in spiking networks.</p></li>
+</ul>
+        </div>
+        <div style="width:50%; float:right;">
+<p><img data-src="img/stdp2.png" /></p>
+        </div>
+      </div>
+    </div>
+
+    <p class=citation>
+         Bi, G. and Poo, M. (2001). Synaptic modification of correlated activity: Hebb’s postulate revisited. Ann. Rev. Neurosci., 24:139-166.
+    </p>
+    
+</section>
+<section id="neuro-computational-modeling" class="slide level1">
+<h1>Neuro-computational modeling</h1>
+<ul>
+<li><p>Populations of neurons can be combined in functional
+<strong>neuro-computational models</strong> learning to solve various
+tasks.</p></li>
+<li><p>Need to implement one (or more) equations per neuron and synapse
+(thousands of neurons, millions of synapses..).</p></li>
+</ul>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:70%; float: left;">
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:50%; float: left;">
+<p><strong>Basal Ganglia</strong></p>
+<p><img data-src="img/BG.png" /></p>
+        </div>
+        <div style="width:50%; float:right;">
+<p><strong>Hippocampus</strong></p>
+<p><img data-src="img/Hippocampus.png" style="width:80.0%" /></p>
+        </div>
+      </div>
+    </div>
+        </div>
+        <div style="width:30%; float:right;">
+<p><strong>Dopaminergic system</strong></p>
+<p><img data-src="img/Dopamine.png" /></p>
+        </div>
+      </div>
+    </div>
+
+    <p class=citation>
+         Villagrasa F, Baladron J, Vitay J, Schroll H, Antzoulatos EG, Miller EK, Hamker FH. 2018. On the Role of Cortex-Basal Ganglia Interactions for Category Learning: A Neurocomputational Approach. J Neurosci 38:9551–9562. doi:10.1523/JNEUROSCI.0874-18.2018
+    </p>
+    
+
+    <p class=citation>
+         Gönner L, Vitay J, Hamker FH. 2017. Predictive Place-Cell Sequences for Goal-Finding Emerge from Goal Memory and the Cognitive Map: A Computational Model. Frontiers in Computational Neuroscience 11:84–84. doi:10.3389/fncom.2017.00084
+    </p>
+    
+
+    <p class=citation>
+         Vitay J, Hamker FH. 2014. Timing and expectation of reward: A neuro-computational model of the afferents to the ventral tegmental area. Frontiers in Neurorobotics 8. doi:10.3389/fnbot.2014.00004
+    </p>
+    
+</section>
+<section id="neuro-simulators" class="slide level1">
+<h1>Neuro-simulators</h1>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:50%; float: left;">
+<p><strong>Fixed libraries of models</strong></p>
+<ul>
+<li><p><strong>NEURON</strong> <a href="https://neuron.yale.edu/neuron/"
+class="uri">https://neuron.yale.edu/neuron/</a></p>
+<ul>
+<li>Multi-compartmental models, spiking neurons (CPU)</li>
+</ul></li>
+</ul>
+<!-- * **GENESIS** <http://genesis-sim.org/>
+
+    * Multi-compartmental models, spiking neurons (CPU) -->
+<ul>
+<li><p><strong>NEST</strong> <a href="https://nest-initiative.org/"
+class="uri">https://nest-initiative.org/</a></p>
+<ul>
+<li>Spiking neurons (CPU)</li>
+</ul></li>
+<li><p><strong>GeNN</strong> <a href="https://genn-team.github.io/genn/"
+class="uri">https://genn-team.github.io/genn/</a></p>
+<ul>
+<li>Spiking neurons (GPU)</li>
+</ul></li>
+<li><p><strong>Auryn</strong> <a
+href="https://fzenke.net/auryn/doku.php"
+class="uri">https://fzenke.net/auryn/doku.php</a></p>
+<ul>
+<li>Spiking neurons (CPU)</li>
+</ul></li>
+</ul>
+        </div>
+        <div style="width:50%; float:right;">
+<p><strong>Code generation</strong></p>
+<ul>
+<li><p><strong>Brian</strong> <a href="https://briansimulator.org/"
+class="uri">https://briansimulator.org/</a></p>
+<ul>
+<li>Spiking neurons (CPU)</li>
+</ul></li>
+<li><p><strong>Brian2GeNN</strong> <a
+href="https://github.com/brian-team/brian2genn"
+class="uri">https://github.com/brian-team/brian2genn</a></p>
+<ul>
+<li>Spiking neurons (GPU)</li>
+</ul></li>
+<li><p><strong>ANNarchy</strong> <a
+href="https://bitbucket.org/annarchy/annarchy"
+class="uri">https://bitbucket.org/annarchy/annarchy</a></p>
+<ul>
+<li>Rate-coded and spiking neurons (CPU, GPU)</li>
+</ul></li>
+</ul>
+        </div>
+      </div>
+    </div>
+</section>
+<section id="annarchy-artificial-neural-networks-architect"
+class="slide level1">
+<h1>ANNarchy (Artificial Neural Networks architect)</h1>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:50%; float: left;">
+<p><img data-src="img/drawing.svg" /></p>
+        </div>
+        <div style="width:50%; float:right;">
+<ul>
+<li>Source code:</li>
+</ul>
+<p><a href="https://bitbucket.org/annarchy/annarchy"
+class="uri">https://bitbucket.org/annarchy/annarchy</a></p>
+<ul>
+<li>Documentation:</li>
+</ul>
+<p><a href="https://annarchy.readthedocs.io/en/stable/"
+class="uri">https://annarchy.readthedocs.io/en/stable/</a></p>
+<ul>
+<li>Forum:</li>
+</ul>
+<p><a href="https://groups.google.com/forum/#!forum/annarchy"
+class="uri">https://groups.google.com/forum/#!forum/annarchy</a></p>
+<ul>
+<li>Some notebooks used in this tutorial:</li>
+</ul>
+<p><a href="https://github.com/vitay/ANNarchy-notebooks"
+class="uri">https://github.com/vitay/ANNarchy-notebooks</a></p>
+        </div>
+      </div>
+    </div>
+
+    <p class=citation>
+         Vitay J, Dinkelbach HÜ, Hamker FH. 2015. ANNarchy: a code generation approach to neural simulations on parallel hardware. Frontiers in Neuroinformatics 9. doi:10.3389/fninf.2015.00019
+    </p>
+    
+</section>
+<section id="installation" class="slide level1">
+<h1>Installation</h1>
+<p>Installation guide: <a
+href="https://annarchy.readthedocs.io/en/stable/intro/Installation.html"
+class="uri">https://annarchy.readthedocs.io/en/stable/intro/Installation.html</a></p>
+<p>From pip:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install ANNarchy</span></code></pre></div>
+<p>From source:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://bitbucket.org/annarchy/annarchy.git</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> annarchy</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> setup.py install</span></code></pre></div>
+<p>Requirements (Linux and MacOS):</p>
+<ul>
+<li>g++/clang++, python 3.5+, numpy, scipy, matplotlib,
+sympy<strong>!=1.6.1</strong>, cython</li>
+</ul>
+</section>
+<section id="features" class="slide level1">
+<h1>Features</h1>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:50%; float: left;">
+<ul>
+<li><p>Simulation of both <strong>rate-coded</strong> and
+<strong>spiking</strong> neural networks.</p></li>
+<li><p>Only local biologically realistic mechanisms are possible (no
+backpropagation).</p></li>
+<li><p><strong>Equation-oriented</strong> description of neural/synaptic
+dynamics (à la Brian).</p></li>
+<li><p><strong>Code generation</strong> in C++, parallelized using
+OpenMP on CPU and CUDA on GPU (MPI is coming).</p></li>
+<li><p>Synaptic, intrinsic and structural plasticity
+mechanisms.</p></li>
+</ul>
+        </div>
+        <div style="width:50%; float:right;">
+<p><img data-src="img/drawing.svg" style="width:100.0%" /></p>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="slide level1">
+
+<p><img data-src="img/drawing.svg" style="width:100.0%" /></p>
+</section>
+<section id="structure-of-a-script" class="slide level1">
+<h1>Structure of a script</h1>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ANNarchy <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>neuron <span class="op">=</span> Neuron(...) <span class="co"># Create neuron types</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>stdp <span class="op">=</span> Synapse(...) <span class="co"># Create synapse types for transmission and/or plasticity</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>pop <span class="op">=</span> Population(<span class="dv">1000</span>, neuron) <span class="co"># Create populations of neurons</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>proj <span class="op">=</span> Projection(pop, pop, <span class="st">&#39;exc&#39;</span>, stdp) <span class="co"># Connect the populations</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>proj.connect_fixed_probability(weights<span class="op">=</span>Uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>), probability<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">compile</span>() <span class="co"># Generate and compile the code</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Monitor(pop, [<span class="st">&#39;spike&#39;</span>]) <span class="co"># Record spikes</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>simulate(<span class="fl">1000.</span>) <span class="co"># Simulate for 1 second</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> m.get(<span class="st">&#39;spike&#39;</span>) <span class="co"># Retrieve the data and plot it</span></span></code></pre></div>
+</section>
+<section id="rate-coded-example-echo-state-network"
+class="slide level1">
+<h1>Rate-coded example : Echo-State Network</h1>
+<p><img data-src="img/rc.jpg" style="width:80.0%" /></p>
+</section>
+<section id="echo-state-network" class="slide level1">
+<h1>Echo-State Network</h1>
+<ul>
+<li>ESN rate-coded neurons follow first-order ODEs:</li>
+</ul>
+<p><span class="math display">\[
+    \tau \frac{dx(t)}{dt} + x(t) = \sum w^\text{in} \, r^\text{in}(t) +
+g \, \sum w^\text{rec} \, r(t) + \xi(t)
+\]</span></p>
+<p><span class="math display">\[
+    r(t) = \tanh(x(t))
+\]</span></p>
+<ul>
+<li>Neural dynamics are described by the equation-oriented
+interface:</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ANNarchy <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ESN_Neuron <span class="op">=</span> Neuron(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">        tau = 30.0 : population   # Time constant</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">        g = 1.0 : population      # Scaling</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">        noise = 0.01 : population # Noise level</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    equations<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">        tau * dx/dt + x = sum(in) + g * sum(exc) + noise * Uniform(-1, 1)  : init=0.0</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st"> </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">        r = tanh(x)</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</section>
+<section id="parameters" class="slide level1">
+<h1>Parameters</h1>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">        tau = 30.0 : population   # Time constant</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">        g = 1.0 : population      # Scaling</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">        noise = 0.01 : population # Noise level</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span></code></pre></div>
+<ul>
+<li><p>All parameters used in the equations must be declared in the
+<strong>Neuron</strong> definition.</p></li>
+<li><p>Parameters can have one value per neuron in the population
+(default) or be common to all neurons (flag <code>population</code> or
+<code>projection</code>).</p></li>
+<li><p>Parameters and variables are double floats by default, but the
+type can be specified (<code>int</code>, <code>bool</code>).</p></li>
+</ul>
+</section>
+<section id="variables" class="slide level1">
+<h1>Variables</h1>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    equations<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="st">        tau * dx/dt + x = sum(in) + g * sum(exc) + noise * Uniform(-1, 1) : init=0.0</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="st">        r = tanh(x)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span></code></pre></div>
+<ul>
+<li><p>Variables are evaluated at each time step <em>in the order of
+their declaration</em>, except for coupled ODEs.</p></li>
+<li><p>Variables can be updated with assignments (<code>=</code>,
+<code>+=</code>, etc) or by defining first order ODEs.</p></li>
+<li><p>The math C library symbols can be used (<code>tanh</code>,
+<code>cos</code>, <code>exp</code>, etc).</p></li>
+<li><p>Initial values at <span class="math inline">\(t=0\)</span> can be
+specified with <code>init</code> (default: 0.0). Lower/higher bounds on
+the values of the variables can be set with the
+<code>min</code>/<code>max</code> flags:</p></li>
+</ul>
+<pre><code>r = x : min=0.0 # ReLU</code></pre>
+<ul>
+<li>Additive noise can be drawn from several distributions, including
+<code>Uniform</code>, <code>Normal</code>, <code>LogNormal</code>,
+<code>Exponential</code>, <code>Gamma</code>…</li>
+</ul>
+</section>
+<section id="odes" class="slide level1">
+<h1>ODEs</h1>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:50%; float: left;">
+<ul>
+<li>First-order ODEs are parsed and manipulated using
+<code>sympy</code>:</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># All equivalent:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    tau <span class="op">*</span> dx<span class="op">/</span>dt <span class="op">+</span> x <span class="op">=</span> I</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    tau <span class="op">*</span> dx<span class="op">/</span>dt <span class="op">=</span> I <span class="op">-</span> x</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    dx<span class="op">/</span>dt <span class="op">=</span> (I <span class="op">-</span> x)<span class="op">/</span>tau</span></code></pre></div>
+        </div>
+        <div style="width:50%; float:right;">
+<ul>
+<li>The generated C++ code applies a numerical method (fixed step size
+<code>dt</code>) for all neurons:</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#pragma omp simd</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(unsigned <span class="bu">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> size<span class="op">;</span> i<span class="op">++</span>){</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    double _x <span class="op">=</span> (I[i] <span class="op">-</span> x[i])<span class="op">/</span>tau<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    x[i] <span class="op">+=</span> dt<span class="op">*</span>_x <span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    r[i] <span class="op">=</span> tanh(x[i])<span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+        </div>
+      </div>
+    </div>
+<ul>
+<li><p>Several numerical methods are available:</p>
+<ul>
+<li><p>Explicit (forward) Euler (default):
+<code>tau * dx/dt + x = I : explicit</code></p></li>
+<li><p>Implicit (backward) Euler:
+<code>tau * dx/dt + x = I : implicit</code></p></li>
+<li><p>Exponential Euler (exact for linear ODE):
+<code>tau * dx/dt + x = I : exponential</code></p></li>
+<li><p>Midpoint (RK2):
+<code>tau * dx/dt + x = I : midpoint</code></p></li>
+<li><p>Event-driven (spiking synapses):
+<code>tau * dx/dt + x = I : event-driven</code></p></li>
+</ul></li>
+</ul>
+
+    <p class=citation>
+         https://annarchy.readthedocs.io/en/stable/manual/NumericalMethods.html
+    </p>
+    
+</section>
+<section id="populations" class="slide level1">
+<h1>Populations</h1>
+<ul>
+<li>Populations are creating by specifying a number of neurons and a
+neuron type:</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pop <span class="op">=</span> Population(<span class="dv">1000</span>, ESN_Neuron)</span></code></pre></div>
+<ul>
+<li>For visualization purposes or when using convolutional layers, a
+tuple geometry can be passed instead of the size:</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pop <span class="op">=</span> Population((<span class="dv">100</span>, <span class="dv">100</span>), ESN_Neuron)</span></code></pre></div>
+<ul>
+<li>All parameters and variables become attributes of the population
+(read and write) as numpy arrays:</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pop.tau <span class="op">=</span> np.linspace(<span class="fl">20.0</span>, <span class="fl">40.0</span>, <span class="dv">1000</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pop.r <span class="op">=</span> np.tanh(pop.v)</span></code></pre></div>
+<ul>
+<li>Slices of populations are called <code>PopulationView</code> and can
+be addressed separately:</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pop <span class="op">=</span> Population(<span class="dv">1000</span>, ESN_Neuron)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>E <span class="op">=</span> pop[:<span class="dv">800</span>]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>I <span class="op">=</span> pop[<span class="dv">800</span>:]</span></code></pre></div>
+</section>
+<section id="projections" class="slide level1">
+<h1>Projections</h1>
+<ul>
+<li>Projections connect two populations (or views) in a uni-directional
+way.</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>proj_exc <span class="op">=</span> Projection(E, pop, <span class="st">&#39;exc&#39;</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>proj_inh <span class="op">=</span> Projection(I, pop, <span class="st">&#39;inh&#39;</span>)</span></code></pre></div>
+<ul>
+<li><p>Each target (<code>'exc', 'inh', 'AMPA', 'NMDA', 'GABA'</code>)
+can be defined as needed and will be treated differently by the
+post-synaptic neurons.</p></li>
+<li><p>The weighted sum of inputs for a specific target is accessed in
+the equations by <code>sum(target)</code>:</p></li>
+</ul>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>    equations<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="st">        tau * dx/dt + x = sum(exc) - sum(inh)</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="st">        r = tanh(x)</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span></code></pre></div>
+<ul>
+<li>It is therefore possible to model modulatory effects, divisive
+inhibition, etc.</li>
+</ul>
+</section>
+<section id="connection-methods" class="slide level1">
+<h1>Connection methods</h1>
+<ul>
+<li><p>Projections must be populated with a connectivity matrix (who is
+connected to who), a weight <code>w</code> and optionally a delay
+<code>d</code> (uniform or variable).</p></li>
+<li><p>Several patterns are predefined:</p></li>
+</ul>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>proj.connect_all_to_all(weights<span class="op">=</span>Normal(<span class="fl">0.0</span>, <span class="fl">1.0</span>), delays<span class="op">=</span><span class="fl">2.0</span>, allow_self_connections<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>proj.connect_one_to_one(weights<span class="op">=</span><span class="fl">1.0</span>, delays<span class="op">=</span>Uniform(<span class="fl">1.0</span>, <span class="fl">10.0</span>))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>proj.connect_fixed_number_pre(number<span class="op">=</span><span class="dv">20</span>, weights<span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>proj.connect_fixed_number_post(number<span class="op">=</span><span class="dv">20</span>, weights<span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>proj.connect_fixed_probability(probability<span class="op">=</span><span class="fl">0.2</span>, weights<span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>proj.connect_gaussian(amp<span class="op">=</span><span class="fl">1.0</span>, sigma<span class="op">=</span><span class="fl">0.2</span>, limit<span class="op">=</span><span class="fl">0.001</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>proj.connect_dog(amp_pos<span class="op">=</span><span class="fl">1.0</span>, sigma_pos<span class="op">=</span><span class="fl">0.2</span>, amp_neg<span class="op">=</span><span class="fl">0.3</span>, sigma_neg<span class="op">=</span><span class="fl">0.7</span>, limit<span class="op">=</span><span class="fl">0.001</span>)</span></code></pre></div>
+<ul>
+<li>But you can also load Numpy arrays or Scipy sparse matrices. Example
+for synfire chains:</li>
+</ul>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:50%; float: left;">
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> np.array([[<span class="va">None</span>]<span class="op">*</span>pre.size]<span class="op">*</span>post.size)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(post.size):</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    w[i, (i<span class="op">-</span><span class="dv">1</span>)<span class="op">%</span>pre.size] <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>proj.connect_from_matrix(w)</span></code></pre></div>
+        </div>
+        <div style="width:50%; float:right;">
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> lil_matrix((pre.size, post.size))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(pre.size):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    w[pre.size, (i<span class="op">+</span><span class="dv">1</span>)<span class="op">%</span>post.size] <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>proj.connect_from_sparse(w)</span></code></pre></div>
+        </div>
+      </div>
+    </div>
+</section>
+<section id="compiling-and-running-the-simulation" class="slide level1">
+<h1>Compiling and running the simulation</h1>
+<ul>
+<li>Once all populations and projections are created, you have to
+generate to the C++ code and compile it:</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">compile</span>()</span></code></pre></div>
+<ul>
+<li><p>You can now manipulate all parameters/variables from Python
+thanks to the Cython bindings.</p></li>
+<li><p>A simulation is simply run for a fixed duration with:</p></li>
+</ul>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>simulate(<span class="fl">1000.</span>) <span class="co"># 1 second</span></span></code></pre></div>
+<ul>
+<li>You can also run a simulation until a criteria is filled,
+check:</li>
+</ul>
+<p><a
+href="https://annarchy.readthedocs.io/en/stable/manual/Simulation.html#early-stopping"
+class="uri">https://annarchy.readthedocs.io/en/stable/manual/Simulation.html#early-stopping</a></p>
+</section>
+<section id="monitoring" class="slide level1">
+<h1>Monitoring</h1>
+<ul>
+<li><p>By default, a simulation is run in C++ without interaction with
+Python.</p></li>
+<li><p>You may want to record some variables (neural or synaptic) during
+the simulation with a <code>Monitor</code>:</p></li>
+</ul>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Monitor(pop, [<span class="st">&#39;v&#39;</span>, <span class="st">&#39;r&#39;</span>])</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> Monitor(proj, [<span class="st">&#39;w&#39;</span>])</span></code></pre></div>
+<ul>
+<li>After the simulation, you can retrieve the recordings with:</li>
+</ul>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>recorded_v <span class="op">=</span> m.get(<span class="st">&#39;v&#39;</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>recorded_r <span class="op">=</span> m.get(<span class="st">&#39;r&#39;</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>recorded_w <span class="op">=</span> n.get(<span class="st">&#39;w&#39;</span>)</span></code></pre></div>
+<ul>
+<li><p>Warning: calling <code>get()</code> flushes the array.</p></li>
+<li><p>Warning: recording projections can quickly fill up the
+RAM…</p></li>
+</ul>
+</section>
+<section id="example-1-echo-state-network" class="slide level1">
+<h1>Example 1: Echo-State Network</h1>
+<p>Link to the Jupyter notebook on github: <a
+href="https://github.com/vitay/ANNarchy-notebooks/blob/master/notebooks/RC.ipynb">RC.ipynb</a></p>
+<p><img data-src="img/rc.jpg" style="width:80.0%" /></p>
+</section>
+<section id="spiking-neurons" class="slide level1">
+<h1>Spiking neurons</h1>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:45%; float: left;">
+<ul>
+<li><p>Spiking neurons must also define two additional fields:</p>
+<ul>
+<li><p><code>spike</code>: condition for emitting a spike.</p></li>
+<li><p><code>reset</code>: what happens after a spike is emitted (at the
+start of the refractory period).</p></li>
+</ul></li>
+<li><p>A refractory period in ms can also be specified.</p></li>
+</ul>
+<p><img data-src="img/LIF-threshold.png" style="width:100.0%" /></p>
+        </div>
+        <div style="width:55%; float:right;">
+<ul>
+<li>Example of the Leaky Integrate-and-Fire:</li>
+</ul>
+<p><span class="math display">\[
+    C \, \frac{d v(t)}{dt} = - g_L \, (v(t) - V_L) + I(t)
+\]</span></p>
+<p><span class="math display">\[
+    \text{if} \; v(t) &gt; V_T \; \text{emit a spike and reset.}
+\]</span></p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>LIF <span class="op">=</span> Neuron(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    parameters<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="st">        C = 200.</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="st">        g_L = 10.</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="st">        E_L = -70.</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="st">        v_T = 0.</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="st">        v_r = -58.</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="st">        I = 0.25</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span>,</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    equations<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="st">        C*dv/dt = g_L*(E_L - v) + I : init=E_L     </span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span>,</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    spike<span class="op">=</span><span class="st">&quot; v &gt;= v_T &quot;</span>,</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    reset<span class="op">=</span><span class="st">&quot; v = v_r &quot;</span>,</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+        </div>
+      </div>
+    </div>
+</section>
+<section id="conductances-currents" class="slide level1">
+<h1>Conductances / currents</h1>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:60%; float: left;">
+<ul>
+<li>A pre-synaptic spike arriving to a spiking neuron increases the
+conductance/current <code>g_target</code> (e.g. <code>g_exc</code> or
+<code>g_inh</code>, depending on the projection).</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>LIF <span class="op">=</span> Neuron(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    parameters<span class="op">=</span><span class="st">&quot;...&quot;</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    equations<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="st">        C*dv/dt = g_L*(E_L - v) + g_exc : init=E_L    </span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    spike<span class="op">=</span><span class="st">&quot; v &gt;= v_T &quot;</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    reset<span class="op">=</span><span class="st">&quot; v = v_r &quot;</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<ul>
+<li>Each spike increments instantaneously <code>g_target</code> from the
+synaptic efficiency <code>w</code> of the corresponding synapse.</li>
+</ul>
+<pre><code>g_target += w</code></pre>
+        </div>
+        <div style="width:40%; float:right;">
+<p><img data-src="img/synaptictransmission.png" /></p>
+        </div>
+      </div>
+    </div>
+</section>
+<section id="conductances-currents-1" class="slide level1">
+<h1>Conductances / currents</h1>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:60%; float: left;">
+<ul>
+<li><p>For <strong>exponentially-decreasing</strong> or
+<strong>alpha-shaped</strong> synapses, ODEs have to be introduced for
+the conductance/current.</p></li>
+<li><p>The exponential numerical method should be preferred, as
+integration is exact.</p></li>
+</ul>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>LIF <span class="op">=</span> Neuron(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    parameters<span class="op">=</span><span class="st">&quot;...&quot;</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    equations<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="st">        C*dv/dt = g_L*(E_L - v) + g_exc : init=E_L   </span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_exc * dg_exc/dt = - g_exc : exponential</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    spike<span class="op">=</span><span class="st">&quot; v &gt;= v_T &quot;</span>,</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    reset<span class="op">=</span><span class="st">&quot; v = v_r &quot;</span>,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+        </div>
+        <div style="width:40%; float:right;">
+<p><img data-src="img/synaptictransmission.png" /></p>
+        </div>
+      </div>
+    </div>
+</section>
+<section id="example-2-coba---conductance-based-ei-network"
+class="slide level1">
+<h1>Example 2: COBA - Conductance-based E/I network</h1>
+<p>Link to the Jupyter notebook on github: <a
+href="https://github.com/vitay/ANNarchy-notebooks/blob/master/notebooks/COBA.ipynb">COBA.ipynb</a></p>
+<p><img data-src="img/COBA.png" style="width:60.0%" /></p>
+<p><span class="math display">\[\tau \cdot \frac{dv (t)}{dt} = E_l -
+v(t) + g_\text{exc} (t) \, (E_\text{exc} - v(t)) + g_\text{inh} (t) \,
+(E_\text{inh} - v(t)) + I(t)\]</span></p>
+</section>
+<section id="rate-coded-synapses-intrator-cooper-bcm-learning-rule"
+class="slide level1">
+<h1>Rate-coded synapses : Intrator &amp; Cooper BCM learning rule</h1>
+<ul>
+<li>Synapses can also implement plasticity rules that will be evaluated
+after each neural update.</li>
+</ul>
+<p><span class="math display">\[\Delta w = \eta \, r^\text{pre} \,
+r^\text{post}  \,  (r^\text{post} -
+\mathbb{E}((r^\text{post})^2))\]</span></p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>IBCM <span class="op">=</span> Synapse(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="st">        eta = 0.01 : projection</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="st">        tau = 2000.0 : projection</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    equations <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="st">        tau * dtheta/dt + theta = post.r^2 : postsynaptic, exponential</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="st">        dw/dt = eta * post.r * (post.r - theta) * pre.r : min=0.0, explicit</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span>,</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    psp <span class="op">=</span> <span class="st">&quot; w * pre.r&quot;</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<ul>
+<li><p>Each synapse can access pre- and post-synaptic variables with
+<code>pre.</code> and <code>post.</code>.</p></li>
+<li><p>The <code>postsynaptic</code> flag allows to do computations only
+once per post-synaptic neurons.</p></li>
+<li><p><code>psp</code> optionally defines what will be summed by the
+post-synaptic neuron
+(e.g. <code>psp = "w * log(pre.r)"</code>).</p></li>
+</ul>
+</section>
+<section id="plastic-projections" class="slide level1">
+<h1>Plastic projections</h1>
+<ul>
+<li>The synapse type just has to be passed to the Projection:</li>
+</ul>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>proj <span class="op">=</span> Projection(inp, pop, <span class="st">&#39;exc&#39;</span>, IBCM)</span></code></pre></div>
+<ul>
+<li>Synaptic variables can be accessed as lists of lists for the whole
+projection:</li>
+</ul>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>proj.w</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>proj.theta</span></code></pre></div>
+<p>or for a single post-synaptic neuron:</p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>proj[<span class="dv">10</span>].w</span></code></pre></div>
+</section>
+<section id="spiking-synapses-example-of-short-term-plasticity-stp"
+class="slide level1">
+<h1>Spiking synapses : Example of Short-term plasticity (STP)</h1>
+<ul>
+<li><p>Spiking synapses can define a <code>pre_spike</code> field,
+defining what happens when a pre-synaptic spike arrives at the
+synapse.</p></li>
+<li><p><code>g_target</code> is an alias for the corresponding
+post-synaptic conductance: it will be replaced by <code>g_exc</code> or
+<code>g_inh</code> depending on how the synapse is used.</p></li>
+<li><p>By default, a pre-synaptic spike increments the post-synaptic
+conductance from <code>w</code>: <code>g_target += w</code></p></li>
+</ul>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>STP <span class="op">=</span> Synapse(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_rec = 100.0 : projection</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_facil = 0.01 : projection</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="st">        U = 0.5</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    equations <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="st">        dx/dt = (1 - x)/tau_rec : init = 1.0, event-driven</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="st">        du/dt = (U - u)/tau_facil : init = 0.5, event-driven</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span>,</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    pre_spike<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="st">        g_target += w * u * x</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="st">        x *= (1 - u)</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="st">        u += U * (1 - u)</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</section>
+<section
+id="spiking-synapses-example-of-spike-timing-dependent-plasticity-stdp"
+class="slide level1">
+<h1>Spiking synapses : Example of Spike-Timing Dependent plasticity
+(STDP)</h1>
+<ul>
+<li><code>post_spike</code> similarly defines what happens when a
+post-synaptic spike is emitted.</li>
+</ul>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>STDP <span class="op">=</span> Synapse(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_plus = 20.0 : projection ; tau_minus = 20.0 : projection</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="st">        A_plus = 0.01 : projection   ; A_minus = 0.01 : projection</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="st">        w_min = 0.0 : projection     ; w_max = 1.0 : projection</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span>,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    equations <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_plus  * dx/dt = -x : event-driven # pre-synaptic trace</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_minus * dy/dt = -y : event-driven # post-synaptic trace</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span>,</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    pre_spike<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="st">        g_target += w</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="st">        x += A_plus * w_max</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="st">        w = clip(w + y, w_min , w_max)</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span>,</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>    post_spike<span class="op">=</span><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="st">        y -= A_minus * w_max</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="st">        w = clip(w + x, w_min , w_max)</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span>)</span></code></pre></div>
+</section>
+<section id="example-3-stdp" class="slide level1">
+<h1>Example 3: STDP</h1>
+<p>Link to the Jupyter notebook on github: <a
+href="https://github.com/vitay/ANNarchy-notebooks/blob/master/notebooks/STDP.ipynb">STDP.ipynb</a></p>
+<p><span class="math display">\[\tau^+ \, \frac{d x(t)}{dt} =
+-x(t)\]</span> <span class="math display">\[\tau^- \, \frac{d y(t)}{dt}
+= -y(t)\]</span></p>
+    <div id="col-wrapper">
+      <div id="col">
+        <div style="width:50%; float: left;">
+<p><img data-src="img/stdp3.png" /></p>
+        </div>
+        <div style="width:50%; float:right;">
+<p><img data-src="img/stdp.png" /></p>
+        </div>
+      </div>
+    </div>
+</section>
+<section id="and-much-more" class="slide level1">
+<h1>And much more…</h1>
+<ul>
+<li><p>Standard populations (<code>SpikeSourceArray</code>,
+<code>TimedArray</code>, <code>PoissonPopulation</code>,
+<code>HomogeneousCorrelatedSpikeTrains</code>), OpenCV
+bindings.</p></li>
+<li><p>Standard neurons:</p>
+<ul>
+<li>LeakyIntegrator, Izhikevich, IF_curr_exp, IF_cond_exp,
+IF_curr_alpha, IF_cond_alpha, HH_cond_exp, EIF_cond_exp_isfa_ista,
+EIF_cond_alpha_isfa_ista</li>
+</ul></li>
+<li><p>Standard synapses:</p>
+<ul>
+<li>Hebb, Oja, IBCM, STP, STDP</li>
+</ul></li>
+<li><p>Parallel simulations with <code>parallel_run</code>.</p></li>
+<li><p>Convolutional and pooling layers.</p></li>
+<li><p>Hybrid rate-coded / spiking networks.</p></li>
+<li><p>Structural plasticity.</p></li>
+<li><p>Tensorboard visualization.</p></li>
+</ul>
+<p>RTFD: <a href="https://annarchy.readthedocs.io"
+class="uri">https://annarchy.readthedocs.io</a></p>
+</section>
+<section id="references" class="slide level1">
+<h1>References</h1>
+<ul>
+<li><p>Bi, G. Q. and Poo, M. M. (1998). Synaptic modifications in
+cultured Hippocampal neurons: dependence on spike timing, synaptic
+strength, and postsynaptic cell type. J Neurosci, 18:10464-72.</p></li>
+<li><p>Bienenstock, E. L., Cooper, L. N, and Munro, P. W. (1982). Theory
+for the development of neuron selectivity: orientation specificity and
+binocular interaction in visual cortex. Journal of Neuroscience,
+2:32–48.</p></li>
+<li><p>Brette R. and Gerstner W. (2005), Adaptive Exponential
+Integrate-and-Fire Model as an Effective Description of Neuronal
+Activity, J. Neurophysiol. 94: 3637 - 3642.</p></li>
+<li><p>Intrator, N. and Cooper, L. N (1992). Objective function
+formulation of the BCM theory of visual cortical plasticity: Statistical
+connections, stability conditions. Neural Networks, 5:3–17.</p></li>
+<li><p>Izhikevich EM. 2003. Simple model of spiking neurons. IEEE
+transactions on neural networks / a publication of the IEEE Neural
+Networks Council 14:1569–72. doi:10.1109/TNN.2003.820440</p></li>
+<li><p>Oja E. 1982. A simplified neuron model as a principal component
+analyze. J Math Biol 15:267–273.</p></li>
+<li><p>Vitay J, Hamker FH. 2010. A computational model of Basal Ganglia
+and its role in memory retrieval in rewarded visual memory tasks.
+Frontiers in computational neuroscience 4.
+doi:10.3389/fncom.2010.00013</p></li>
 </ul>
 </section>
     </div>
