@@ -1,0 +1,8 @@
+---
+title: ANNarchy - Artificial Neural Networks architect
+---
+ANNarchy (Artificial Neural Networks architect) is a neuro-simulator for rate-coded or spiking neural networks in Python. The source code is available at <https://github.com/ANNarchy/ANNarchy>, while the full documentation is at: <https://annarchy.github.io>.
+
+This website is a tutorial for beginners to get started: for more details and functionalities, please refer to the documentation. The slides used for the videos are available [here](slides/presentation.html). Jupyter notebooks for simple models showcasing the usage of ANNarchy are available [here](notebooks/Content.qmd).
+
+![](../slides/img/drawing.svg){width=80%}

@@ -1,0 +1,47 @@
+project:
+  type: website
+  output-dir: ../docs
+
+website:
+  title: "ANNarchy tutorial"
+
+  navbar:
+    background: black
+    logo: img/logowhite.png
+    right:
+      - text: "Slides"
+        file: slides/presentation.html
+      - text: "Notebooks"
+        file: notebooks/Content.qmd
+      - icon: github
+        href: https://github.com/ANNarchy/ANNarchy
+        aria-label: GitHub
+
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Tutorial"
+        contents:
+        - Neurocomp.qmd
+        - ANNarchy.qmd
+        - RateCoded.qmd
+        - Spiking.qmd
+      - section: "Notebooks"
+        contents:
+          - notebooks/RC.ipynb
+          - notebooks/AdEx.ipynb
+
+
+
+format:
+  html:
+    theme: [sandstone, custom.scss]
+    page-layout: full
+    smooth-scroll: true
+    html-math-method: katex
+
+filters:
+  - center_images.lua
+  - quarto
+
