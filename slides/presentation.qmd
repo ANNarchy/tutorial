@@ -6,8 +6,6 @@ institute: "*Lab for Artificial Intelligence, Chemnitz University of Technology*
 
 bibliography: references.bib
 
-highlight-style: github
-code-line-numbers: false
 ---
 
 # Outline
@@ -509,9 +507,9 @@ from ANNarchy import *
 
 ESN_Neuron = Neuron(
     parameters = """
-        tau = 30.0 : population   # Time constant
-        g = 1.0 : population      # Scaling
-        noise = 0.01 : population # Noise level
+        tau = 30.0   : population   # Time constant
+        g = 1.0      : population   # Scaling
+        noise = 0.01 : population   # Noise level
     """,
     equations="""
         tau * dx/dt + x = sum(in) + g * sum(exc) + noise * Uniform(-1, 1)  : init=0.0
@@ -525,9 +523,9 @@ ESN_Neuron = Neuron(
 
 ```python
     parameters = """
-        tau = 30.0 : population   # Time constant
-        g = 1.0 : population      # Scaling
-        noise = 0.01 : population # Noise level
+        tau = 30.0   : population   # Time constant
+        g = 1.0      : population   # Scaling
+        noise = 0.01 : population   # Noise level
     """
 ```
 
@@ -549,11 +547,13 @@ ESN_Neuron = Neuron(
 
 * Variables are evaluated at each time step *in the order of their declaration*, except for coupled ODEs.
 
+* The output variable of a rate-coded neuron must be named `r`.
+
 * Variables can be updated with assignments (`=`, `+=`, etc) or by defining first order ODEs.
 
 * The math C library symbols can be used (`tanh`, `cos`, `exp`, etc).
 
-* Initial values at $t=0$ can be specified with `init` (default: 0.0). 
+* Initial values at the start of the simulation can be specified with `init` (default: 0.0). 
 
 * Lower/higher bounds on the values of the variables can be set with the `min`/`max` flags:
 
@@ -783,17 +783,84 @@ recorded_r = m.get('r')
 recorded_w = n.get('w')
 ```
 
-* Warning: calling `get()` flushes the array.
+* Warning: calling `get()` flushes the underlying arrays.
 
 * Warning: recording projections can quickly fill up the RAM...
 
-# Example 1: Echo-State Network
+# Notebook: Echo-State Network
 
-Link to the Jupyter notebook on github: [RC.ipynb](https://github.com/vitay/ANNarchy-notebooks/blob/master/notebooks/RC.ipynb)
+Download the Jupyter notebook: [RC.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/RC.ipynb){target="_blank"}
+
+Run it directly on colab: [RC.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/RC.ipynb){target="_blank"}
 
 ::: {}
 ![](img/rc.jpg){width=80%}
 :::
+
+
+
+# Plasticity in rate-coded networks
+
+
+* Synapses can also implement plasticity rules that will be evaluated after each neural update.
+
+* Example of the Intrator & Cooper BCM learning rule:
+
+$$\Delta w = \eta \, r^\text{pre} \, r^\text{post}  \,  (r^\text{post} - \mathbb{E}[(r^\text{post})^2])$$
+
+```python
+IBCM = Synapse(
+    parameters = """
+        eta = 0.01 : projection
+        tau = 2000.0 : projection
+    """,
+    equations = """
+        tau * dtheta/dt + theta = post.r^2 : postsynaptic, exponential
+
+        dw/dt = eta * post.r * (post.r - theta) * pre.r : min=0.0, explicit
+    """,
+    psp = " w * pre.r"
+)
+```
+
+* Each synapse can access pre- and post-synaptic variables with `pre.` and `post.`.
+
+* The `postsynaptic` flag allows to do computations only once per post-synaptic neurons.
+
+* `psp` optionally defines what will be summed by the post-synaptic neuron (e.g. `psp = "w * log(pre.r)"`).
+
+# Plastic projections
+
+* The synapse type just has to be passed to the Projection:
+
+```python
+proj = Projection(inp, pop, 'exc', synapse=IBCM)
+```
+
+* Synaptic variables can be accessed as lists of lists for the whole projection:
+
+```python
+proj.w
+proj.theta
+```
+
+or for a single post-synaptic neuron:
+
+```python
+proj[10].w
+```
+
+
+# Notebook: IBCM learning rule
+
+Download the Jupyter notebook: [BCM.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/BCM.ipynb){target="_blank"}
+
+Run it directly on colab: [BCM.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/BCM.ipynb){target="_blank"}
+
+::: {}
+![Source: <http://www.scholarpedia.org/article/BCM_theory>](img/bcm.png){width=30%}
+:::
+
 
 
 # 4 - Spiking networks
@@ -829,7 +896,7 @@ $$
 
 ```python
 LIF = Neuron(
-    parameters="""
+    parameters = """
         C = 200.
         g_L = 10.
         E_L = -70.
@@ -837,17 +904,30 @@ LIF = Neuron(
         v_r = -58.
         I = 0.25
     """,
-    equations="""
-        C*dv/dt = g_L*(E_L - v) + I : init=E_L     
+    equations = """
+        C * dv/dt = g_L * (E_L - v) + I : init=E_L     
     """,
-    spike=" v >= v_T ",
-    reset=" v = v_r ",
+    spike = "v >= v_T",
+    reset = "v = v_r",
     refractory = 2.0
 )
 ```
 
 :::
 :::
+
+# Notebook: AdEx neuron - Adaptive exponential Integrate-and-fire
+
+Download the Jupyter notebook: [AdEx.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/AdEx.ipynb){target="_blank"}
+
+Run it directly on colab: [AdEx.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/AdEx.ipynb){target="_blank"}
+
+![](img/adex.png){width=60%}
+
+
+$$\tau \cdot \frac{dv (t)}{dt} = E_l - v(t) + g_\text{exc} (t) \, (E_\text{exc} - v(t)) + g_\text{inh} (t) \, (E_\text{inh} - v(t)) + I(t)$$
+
+
 
 
 # Conductances / currents
@@ -859,12 +939,12 @@ LIF = Neuron(
 
 ```python
 LIF = Neuron(
-    parameters="...",
-    equations="""
+    parameters = "...",
+    equations = """
         C*dv/dt = g_L*(E_L - v) + g_exc : init=E_L    
     """,
-    spike=" v >= v_T ",
-    reset=" v = v_r ",
+    spike = "v >= v_T",
+    reset = "v = v_r",
     refractory = 2.0
 )
 ```
@@ -895,14 +975,14 @@ g_target += w
 
 ```python
 LIF = Neuron(
-    parameters="...",
-    equations="""
+    parameters = "...",
+    equations = """
         C*dv/dt = g_L*(E_L - v) + g_exc : init=E_L   
 
         tau_exc * dg_exc/dt = - g_exc : exponential
     """,
-    spike=" v >= v_T ",
-    reset=" v = v_r ",
+    spike = "v >= v_T",
+    reset = "v = v_r",
     refractory = 2.0
 )
 ```
@@ -918,64 +998,19 @@ LIF = Neuron(
 
 
 
-# Example 2: COBA - Conductance-based E/I network
+# Notebook: COBA - Conductance-based E/I network
 
-Link to the Jupyter notebook on github: [COBA.ipynb](https://github.com/vitay/ANNarchy-notebooks/blob/master/notebooks/COBA.ipynb)
+Download the Jupyter notebook: [COBA.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/CODA.ipynb){target="_blank"}
 
+Run it directly on colab: [COBA.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/COBA.ipynb){target="_blank"}
+
+::: {}
 ![](img/COBA.png){width=60%}
-
+:::
 
 $$\tau \cdot \frac{dv (t)}{dt} = E_l - v(t) + g_\text{exc} (t) \, (E_\text{exc} - v(t)) + g_\text{inh} (t) \, (E_\text{inh} - v(t)) + I(t)$$
 
 
-
-# Rate-coded synapses : Intrator & Cooper BCM learning rule
-
-* Synapses can also implement plasticity rules that will be evaluated after each neural update.
-
-$$\Delta w = \eta \, r^\text{pre} \, r^\text{post}  \,  (r^\text{post} - \mathbb{E}((r^\text{post})^2))$$
-
-```python
-IBCM = Synapse(
-    parameters = """
-        eta = 0.01 : projection
-        tau = 2000.0 : projection
-    """,
-    equations = """
-        tau * dtheta/dt + theta = post.r^2 : postsynaptic, exponential
-
-        dw/dt = eta * post.r * (post.r - theta) * pre.r : min=0.0, explicit
-    """,
-    psp = " w * pre.r"
-)
-```
-
-* Each synapse can access pre- and post-synaptic variables with `pre.` and `post.`.
-
-* The `postsynaptic` flag allows to do computations only once per post-synaptic neurons.
-
-* `psp` optionally defines what will be summed by the post-synaptic neuron (e.g. `psp = "w * log(pre.r)"`).
-
-# Plastic projections
-
-* The synapse type just has to be passed to the Projection:
-
-```python
-proj = Projection(inp, pop, 'exc', IBCM)
-```
-
-* Synaptic variables can be accessed as lists of lists for the whole projection:
-
-```python
-proj.w
-proj.theta
-```
-
-or for a single post-synaptic neuron:
-
-```python
-proj[10].w
-```
 
 # Spiking synapses : Example of Short-term plasticity (STP)
 
@@ -1030,9 +1065,11 @@ STDP = Synapse(
     """)
 ```
 
-# Example 3: STDP
+# Notebook: STDP
 
-Link to the Jupyter notebook on github: [STDP.ipynb](https://github.com/vitay/ANNarchy-notebooks/blob/master/notebooks/STDP.ipynb)
+Download the Jupyter notebook: [STDP.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/STDP.ipynb){target="_blank"}
+
+Run it directly on colab: [STDP.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/STDP.ipynb){target="_blank"}
 
 $$\tau^+ \, \frac{d x(t)}{dt} = -x(t)$$
 $$\tau^- \, \frac{d y(t)}{dt} = -y(t)$$
@@ -1075,7 +1112,7 @@ $$\tau^- \, \frac{d y(t)}{dt} = -y(t)$$
 
 * Tensorboard visualization.
 
-RTFD: <https://annarchy.github.io>
+RTFM: <https://annarchy.github.io>
 
 # References
 

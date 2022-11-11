@@ -894,9 +894,9 @@
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ESN_Neuron <span class="op">=</span> Neuron(</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">"""</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">        tau = 30.0 : population   # Time constant</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">        g = 1.0 : population      # Scaling</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">        noise = 0.01 : population # Noise level</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">        tau = 30.0   : population   # Time constant</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">        g = 1.0      : population   # Scaling</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">        noise = 0.01 : population   # Noise level</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    equations<span class="op">=</span><span class="st">"""</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">        tau * dx/dt + x = sum(in) + g * sum(exc) + noise * Uniform(-1, 1)  : init=0.0</span></span>
@@ -909,9 +909,9 @@
 <section id="parameters" class="title-slide slide level1 center">
 <h1>Parameters</h1>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">"""</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">        tau = 30.0 : population   # Time constant</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">        g = 1.0 : population      # Scaling</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">        noise = 0.01 : population # Noise level</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">        tau = 30.0   : population   # Time constant</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">        g = 1.0      : population   # Scaling</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">        noise = 0.01 : population   # Noise level</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><p>All parameters used in the equations must be declared in the <strong>Neuron</strong> definition.</p></li>
@@ -929,9 +929,10 @@
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><p>Variables are evaluated at each time step <em>in the order of their declaration</em>, except for coupled ODEs.</p></li>
+<li><p>The output variable of a rate-coded neuron must be named <code>r</code>.</p></li>
 <li><p>Variables can be updated with assignments (<code>=</code>, <code>+=</code>, etc) or by defining first order ODEs.</p></li>
 <li><p>The math C library symbols can be used (<code>tanh</code>, <code>cos</code>, <code>exp</code>, etc).</p></li>
-<li><p>Initial values at <span class="math inline">t=0</span> can be specified with <code>init</code> (default: 0.0).</p></li>
+<li><p>Initial values at the start of the simulation can be specified with <code>init</code> (default: 0.0).</p></li>
 <li><p>Lower/higher bounds on the values of the variables can be set with the <code>min</code>/<code>max</code> flags:</p></li>
 </ul>
 <pre><code>r = x : min=0.0 # ReLU</code></pre>
@@ -1111,18 +1112,74 @@
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>recorded_w <span class="op">=</span> n.get(<span class="st">'w'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li><p>Warning: calling <code>get()</code> flushes the array.</p></li>
+<li><p>Warning: calling <code>get()</code> flushes the underlying arrays.</p></li>
 <li><p>Warning: recording projections can quickly fill up the RAM…</p></li>
 </ul>
 </section>
 
-<section id="example-1-echo-state-network" class="title-slide slide level1 center">
-<h1>Example 1: Echo-State Network</h1>
-<p>Link to the Jupyter notebook on github: <a href="https://github.com/vitay/ANNarchy-notebooks/blob/master/notebooks/RC.ipynb">RC.ipynb</a></p>
+<section id="notebook-echo-state-network" class="title-slide slide level1 center">
+<h1>Notebook: Echo-State Network</h1>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/RC.ipynb" target="_blank">RC.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/RC.ipynb" target="_blank">RC.ipynb</a></p>
 <div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="img/rc.jpg" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</section>
+
+<section id="plasticity-in-rate-coded-networks" class="title-slide slide level1 center">
+<h1>Plasticity in rate-coded networks</h1>
+<ul>
+<li><p>Synapses can also implement plasticity rules that will be evaluated after each neural update.</p></li>
+<li><p>Example of the Intrator &amp; Cooper BCM learning rule:</p></li>
+</ul>
+<p><span class="math display">\Delta w = \eta \, r^\text{pre} \, r^\text{post}  \,  (r^\text{post} - \mathbb{E}[(r^\text{post})^2])</span></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>IBCM <span class="op">=</span> Synapse(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="st">        eta = 0.01 : projection</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="st">        tau = 2000.0 : projection</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    equations <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="st">        tau * dtheta/dt + theta = post.r^2 : postsynaptic, exponential</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="st">        dw/dt = eta * post.r * (post.r - theta) * pre.r : min=0.0, explicit</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    psp <span class="op">=</span> <span class="st">" w * pre.r"</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><p>Each synapse can access pre- and post-synaptic variables with <code>pre.</code> and <code>post.</code>.</p></li>
+<li><p>The <code>postsynaptic</code> flag allows to do computations only once per post-synaptic neurons.</p></li>
+<li><p><code>psp</code> optionally defines what will be summed by the post-synaptic neuron (e.g.&nbsp;<code>psp = "w * log(pre.r)"</code>).</p></li>
+</ul>
+</section>
+
+<section id="plastic-projections" class="title-slide slide level1 center">
+<h1>Plastic projections</h1>
+<ul>
+<li>The synapse type just has to be passed to the Projection:</li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>proj <span class="op">=</span> Projection(inp, pop, <span class="st">'exc'</span>, synapse<span class="op">=</span>IBCM)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Synaptic variables can be accessed as lists of lists for the whole projection:</li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>proj.w</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>proj.theta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or for a single post-synaptic neuron:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>proj[<span class="dv">10</span>].w</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+
+<section id="notebook-ibcm-learning-rule" class="title-slide slide level1 center">
+<h1>Notebook: IBCM learning rule</h1>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/BCM.ipynb" target="_blank">BCM.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/BCM.ipynb" target="_blank">BCM.ipynb</a></p>
+<div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/bcm.png" style="width:30.0%"></p>
+<p></p><figcaption>Source: <a href="http://www.scholarpedia.org/article/BCM_theory" class="uri">http://www.scholarpedia.org/article/BCM_theory</a></figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1160,24 +1217,32 @@
 <p><span class="math display">
     \text{if} \; v(t) &gt; V_T \; \text{emit a spike and reset.}
 </span></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>LIF <span class="op">=</span> Neuron(</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    parameters<span class="op">=</span><span class="st">"""</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="st">        C = 200.</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="st">        g_L = 10.</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="st">        E_L = -70.</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="st">        v_T = 0.</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="st">        v_r = -58.</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="st">        I = 0.25</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    equations<span class="op">=</span><span class="st">"""</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="st">        C*dv/dt = g_L*(E_L - v) + I : init=E_L     </span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    spike<span class="op">=</span><span class="st">" v &gt;= v_T "</span>,</span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    reset<span class="op">=</span><span class="st">" v = v_r "</span>,</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">2.0</span></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>LIF <span class="op">=</span> Neuron(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="st">        C = 200.</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="st">        g_L = 10.</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="st">        E_L = -70.</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="st">        v_T = 0.</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="st">        v_r = -58.</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="st">        I = 0.25</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    equations <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="st">        C * dv/dt = g_L * (E_L - v) + I : init=E_L     </span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    spike <span class="op">=</span> <span class="st">"v &gt;= v_T"</span>,</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    reset <span class="op">=</span> <span class="st">"v = v_r"</span>,</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
+</section>
+
+<section id="notebook-adex-neuron---adaptive-exponential-integrate-and-fire" class="title-slide slide level1 center">
+<h1>Notebook: AdEx neuron - Adaptive exponential Integrate-and-fire</h1>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/AdEx.ipynb" target="_blank">AdEx.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/AdEx.ipynb" target="_blank">AdEx.ipynb</a></p>
+
+<img data-src="img/adex.png" style="width:60.0%" class="r-stretch quarto-figure-center"><p><span class="math display">\tau \cdot \frac{dv (t)}{dt} = E_l - v(t) + g_\text{exc} (t) \, (E_\text{exc} - v(t)) + g_\text{inh} (t) \, (E_\text{inh} - v(t)) + I(t)</span></p>
 </section>
 
 <section id="conductances-currents" class="title-slide slide level1 center">
@@ -1187,15 +1252,15 @@
 <ul>
 <li>A pre-synaptic spike arriving to a spiking neuron increases the conductance/current <code>g_target</code> (e.g.&nbsp;<code>g_exc</code> or <code>g_inh</code>, depending on the projection).</li>
 </ul>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>LIF <span class="op">=</span> Neuron(</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    parameters<span class="op">=</span><span class="st">"..."</span>,</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    equations<span class="op">=</span><span class="st">"""</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="st">        C*dv/dt = g_L*(E_L - v) + g_exc : init=E_L    </span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    spike<span class="op">=</span><span class="st">" v &gt;= v_T "</span>,</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    reset<span class="op">=</span><span class="st">" v = v_r "</span>,</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">2.0</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>LIF <span class="op">=</span> Neuron(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">"..."</span>,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    equations <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="st">        C*dv/dt = g_L*(E_L - v) + g_exc : init=E_L    </span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    spike <span class="op">=</span> <span class="st">"v &gt;= v_T"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    reset <span class="op">=</span> <span class="st">"v = v_r"</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Each spike increments instantaneously <code>g_target</code> from the synaptic efficiency <code>w</code> of the corresponding synapse.</li>
 </ul>
@@ -1218,17 +1283,17 @@
 <li><p>For <strong>exponentially-decreasing</strong> or <strong>alpha-shaped</strong> synapses, ODEs have to be introduced for the conductance/current.</p></li>
 <li><p>The exponential numerical method should be preferred, as integration is exact.</p></li>
 </ul>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>LIF <span class="op">=</span> Neuron(</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    parameters<span class="op">=</span><span class="st">"..."</span>,</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    equations<span class="op">=</span><span class="st">"""</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="st">        C*dv/dt = g_L*(E_L - v) + g_exc : init=E_L   </span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_exc * dg_exc/dt = - g_exc : exponential</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    spike<span class="op">=</span><span class="st">" v &gt;= v_T "</span>,</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    reset<span class="op">=</span><span class="st">" v = v_r "</span>,</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">2.0</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>LIF <span class="op">=</span> Neuron(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">"..."</span>,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    equations <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="st">        C*dv/dt = g_L*(E_L - v) + g_exc : init=E_L   </span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_exc * dg_exc/dt = - g_exc : exponential</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    spike <span class="op">=</span> <span class="st">"v &gt;= v_T"</span>,</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    reset <span class="op">=</span> <span class="st">"v = v_r"</span>,</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:40%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1239,51 +1304,18 @@
 </div>
 </section>
 
-<section id="example-2-coba---conductance-based-ei-network" class="title-slide slide level1 center">
-<h1>Example 2: COBA - Conductance-based E/I network</h1>
-<p>Link to the Jupyter notebook on github: <a href="https://github.com/vitay/ANNarchy-notebooks/blob/master/notebooks/COBA.ipynb">COBA.ipynb</a></p>
-
-<img data-src="img/COBA.png" style="width:60.0%" class="r-stretch quarto-figure-center"><p><span class="math display">\tau \cdot \frac{dv (t)}{dt} = E_l - v(t) + g_\text{exc} (t) \, (E_\text{exc} - v(t)) + g_\text{inh} (t) \, (E_\text{inh} - v(t)) + I(t)</span></p>
-</section>
-
-<section id="rate-coded-synapses-intrator-cooper-bcm-learning-rule" class="title-slide slide level1 center">
-<h1>Rate-coded synapses : Intrator &amp; Cooper BCM learning rule</h1>
-<ul>
-<li>Synapses can also implement plasticity rules that will be evaluated after each neural update.</li>
-</ul>
-<p><span class="math display">\Delta w = \eta \, r^\text{pre} \, r^\text{post}  \,  (r^\text{post} - \mathbb{E}((r^\text{post})^2))</span></p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>IBCM <span class="op">=</span> Synapse(</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">"""</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="st">        eta = 0.01 : projection</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="st">        tau = 2000.0 : projection</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    equations <span class="op">=</span> <span class="st">"""</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="st">        tau * dtheta/dt + theta = post.r^2 : postsynaptic, exponential</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="st">        dw/dt = eta * post.r * (post.r - theta) * pre.r : min=0.0, explicit</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    psp <span class="op">=</span> <span class="st">" w * pre.r"</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li><p>Each synapse can access pre- and post-synaptic variables with <code>pre.</code> and <code>post.</code>.</p></li>
-<li><p>The <code>postsynaptic</code> flag allows to do computations only once per post-synaptic neurons.</p></li>
-<li><p><code>psp</code> optionally defines what will be summed by the post-synaptic neuron (e.g.&nbsp;<code>psp = "w * log(pre.r)"</code>).</p></li>
-</ul>
-</section>
-
-<section id="plastic-projections" class="title-slide slide level1 center">
-<h1>Plastic projections</h1>
-<ul>
-<li>The synapse type just has to be passed to the Projection:</li>
-</ul>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>proj <span class="op">=</span> Projection(inp, pop, <span class="st">'exc'</span>, IBCM)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li>Synaptic variables can be accessed as lists of lists for the whole projection:</li>
-</ul>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>proj.w</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>proj.theta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>or for a single post-synaptic neuron:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>proj[<span class="dv">10</span>].w</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="notebook-coba---conductance-based-ei-network" class="title-slide slide level1 center">
+<h1>Notebook: COBA - Conductance-based E/I network</h1>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/CODA.ipynb" target="_blank">COBA.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/COBA.ipynb" target="_blank">COBA.ipynb</a></p>
+<div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/COBA.png" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+<p><span class="math display">\tau \cdot \frac{dv (t)}{dt} = E_l - v(t) + g_\text{exc} (t) \, (E_\text{exc} - v(t)) + g_\text{inh} (t) \, (E_\text{inh} - v(t)) + I(t)</span></p>
 </section>
 
 <section id="spiking-synapses-example-of-short-term-plasticity-stp" class="title-slide slide level1 center">
@@ -1337,9 +1369,10 @@
 <span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
-<section id="example-3-stdp" class="title-slide slide level1 center">
-<h1>Example 3: STDP</h1>
-<p>Link to the Jupyter notebook on github: <a href="https://github.com/vitay/ANNarchy-notebooks/blob/master/notebooks/STDP.ipynb">STDP.ipynb</a></p>
+<section id="notebook-stdp" class="title-slide slide level1 center">
+<h1>Notebook: STDP</h1>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/STDP.ipynb" target="_blank">STDP.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/STDP.ipynb" target="_blank">STDP.ipynb</a></p>
 <p><span class="math display">\tau^+ \, \frac{d x(t)}{dt} = -x(t)</span> <span class="math display">\tau^- \, \frac{d y(t)}{dt} = -y(t)</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1376,7 +1409,7 @@
 <li><p>Structural plasticity.</p></li>
 <li><p>Tensorboard visualization.</p></li>
 </ul>
-<p>RTFD: <a href="https://annarchy.github.io" class="uri">https://annarchy.github.io</a></p>
+<p>RTFM: <a href="https://annarchy.github.io" class="uri">https://annarchy.github.io</a></p>
 </section>
 
 <section id="references" class="title-slide slide level1 smaller scrollable">
