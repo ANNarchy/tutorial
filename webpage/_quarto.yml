@@ -34,7 +34,12 @@ website:
         contents:
           - notebooks/RC.ipynb
           - notebooks/BCM.ipynb
+          - notebooks/Miconi.ipynb
           - notebooks/AdEx.ipynb
+          - notebooks/SynapticTransmission.ipynb
+          - notebooks/COBA.ipynb
+          - notebooks/STP.ipynb
+          - notebooks/STDP.ipynb
 
   page-footer:
     center: |

@@ -1085,7 +1085,7 @@
 <div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">compile</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><p>You can now manipulate all parameters/variables from Python thanks to the Cython bindings.</p></li>
-<li><p>A simulation is simply run for a fixed duration with:</p></li>
+<li><p>A simulation is simply run for a fixed duration in milliseconds with:</p></li>
 </ul>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>simulate(<span class="fl">1000.</span>) <span class="co"># 1 second</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
@@ -1111,10 +1111,32 @@
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>recorded_r <span class="op">=</span> m.get(<span class="st">'r'</span>)</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>recorded_w <span class="op">=</span> n.get(<span class="st">'w'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li><p>Warning: calling <code>get()</code> flushes the underlying arrays.</p></li>
-<li><p>Warning: recording projections can quickly fill up the RAM…</p></li>
-</ul>
+<div class="callout callout-warning callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Calling <code>get()</code> flushes the underlying arrays.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-warning callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Recording projections can quickly fill up the RAM…</p>
+</div>
+</div>
+</div>
 </section>
 
 <section id="notebook-echo-state-network" class="title-slide slide level1 center">
@@ -1147,7 +1169,7 @@
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="st">        dw/dt = eta * post.r * (post.r - theta) * pre.r : min=0.0, explicit</span></span>
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    psp <span class="op">=</span> <span class="st">" w * pre.r"</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    psp <span class="op">=</span> <span class="st">"w * pre.r"</span></span>
 <span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><p>Each synapse can access pre- and post-synaptic variables with <code>pre.</code> and <code>post.</code>.</p></li>
@@ -1180,6 +1202,22 @@
 <figure>
 <p><img data-src="img/bcm.png" style="width:30.0%"></p>
 <p></p><figcaption>Source: <a href="http://www.scholarpedia.org/article/BCM_theory" class="uri">http://www.scholarpedia.org/article/BCM_theory</a></figcaption><p></p>
+</figure>
+</div>
+</div>
+</section>
+
+<section id="notebook-reward-modulated-rc-network-of-miconi-2017" class="title-slide slide level1 center">
+<h1>Notebook: Reward-modulated RC network of Miconi (2017)</h1>
+<blockquote>
+<p>Miconi T. (2017). Biologically plausible learning in recurrent neural networks reproduces neural dynamics observed during cognitive tasks. eLife 6:e20899. doi:10.7554/eLife.20899</p>
+</blockquote>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/Miconi.ipynb" target="_blank">Miconi.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/Miconi.ipynb" target="_blank">Miconi.ipynb</a></p>
+<div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/miconi.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1304,6 +1342,13 @@
 </div>
 </section>
 
+<section id="notebook-synaptic-transmission" class="title-slide slide level1 center">
+<h1>Notebook: Synaptic transmission</h1>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/SynapticTransmission.ipynb" target="_blank">SynapticTransmission.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/SynapticTransmission.ipynb" target="_blank">SynapticTransmission.ipynb</a></p>
+
+<img data-src="img/synaptictransmission.png" style="width:60.0%" class="r-stretch quarto-figure-center"></section>
+
 <section id="notebook-coba---conductance-based-ei-network" class="title-slide slide level1 center">
 <h1>Notebook: COBA - Conductance-based E/I network</h1>
 <p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/CODA.ipynb" target="_blank">COBA.ipynb</a></p>
@@ -1311,15 +1356,15 @@
 <div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="img/COBA.png" style="width:60.0%"></p>
+<p><img data-src="img/COBA.png" style="width:40.0%"></p>
 </figure>
 </div>
 </div>
 <p><span class="math display">\tau \cdot \frac{dv (t)}{dt} = E_l - v(t) + g_\text{exc} (t) \, (E_\text{exc} - v(t)) + g_\text{inh} (t) \, (E_\text{inh} - v(t)) + I(t)</span></p>
 </section>
 
-<section id="spiking-synapses-example-of-short-term-plasticity-stp" class="title-slide slide level1 center">
-<h1>Spiking synapses : Example of Short-term plasticity (STP)</h1>
+<section id="spiking-synapses-short-term-plasticity-stp" class="title-slide slide level1 center">
+<h1>Spiking synapses : Short-term plasticity (STP)</h1>
 <ul>
 <li><p>Spiking synapses can define a <code>pre_spike</code> field, defining what happens when a pre-synaptic spike arrives at the synapse.</p></li>
 <li><p><code>g_target</code> is an alias for the corresponding post-synaptic conductance: it will be replaced by <code>g_exc</code> or <code>g_inh</code> depending on how the synapse is used.</p></li>
@@ -1342,6 +1387,13 @@
 <span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span></span>
 <span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
+
+<section id="notebook-stp" class="title-slide slide level1 center">
+<h1>Notebook: STP</h1>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/STP.ipynb" target="_blank">STP.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/STP.ipynb" target="_blank">STP.ipynb</a></p>
+
+<img data-src="img/stp.png" class="r-stretch quarto-figure-center"></section>
 
 <section id="spiking-synapses-example-of-spike-timing-dependent-plasticity-stdp" class="title-slide slide level1 center">
 <h1>Spiking synapses : Example of Spike-Timing Dependent plasticity (STDP)</h1>

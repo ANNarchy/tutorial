@@ -257,7 +257,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../notebooks/Miconi.html" class="sidebar-item-text sidebar-link">Miconi network</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../notebooks/AdEx.html" class="sidebar-item-text sidebar-link">Adaptive Exponential IF neuron</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/SynapticTransmission.html" class="sidebar-item-text sidebar-link">Synaptic transmission</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/COBA.html" class="sidebar-item-text sidebar-link active">COBA network</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/STP.html" class="sidebar-item-text sidebar-link">Short-term Plasticity</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/STDP.html" class="sidebar-item-text sidebar-link">STDP</a>
   </div>
 </li>
       </ul>
@@ -274,46 +299,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="coba-network" class="level1">
 <h1>COBA network</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install ANNarchy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>This script reproduces the benchmark used in:</p>
-<p><strong>Brette, R., Rudolph, M., Carnevale, T., Hines, M., Beeman, D., Bower, J. M., et al.</strong> (2007), Simulation of networks of spiking neurons: a review of tools and strategies., <em>J. Comput. Neurosci., 23, 3, 349–98</em></p>
+<blockquote class="blockquote">
+<p>Brette, R., Rudolph, M., Carnevale, T., Hines, M., Beeman, D., Bower, J. M., et al.&nbsp;(2007), Simulation of networks of spiking neurons: a review of tools and strategies., <em>J. Comput. Neurosci., 23, 3, 349–98</em></p>
+</blockquote>
 <p>based on the balanced network proposed by:</p>
-<p><strong>Vogels, T. P. and Abbott, L. F.</strong> (2005), Signal propagation and logic gating in networks of integrate-and-fire neurons., <em>J. Neurosci., 25, 46, 10786–95</em></p>
-<p>The network is composed of 4000 neurons (3200 excitatory and 800 inhibitory), reciprocally connected with a probability of 0.02 (sparse connection).</p>
+<blockquote class="blockquote">
+<p>Vogels, T. P. and Abbott, L. F. (2005), Signal propagation and logic gating in networks of integrate-and-fire neurons., <em>J. Neurosci., 25, 46, 10786–95</em></p>
+</blockquote>
+<p>The network is composed of 4000 neurons (3200 excitatory and 800 inhibitory), reciprocally connected with a probability of 0.02 (sparse connectivity).</p>
 <p>The COBA model uses conductance-based IF neurons:</p>
 <p><span class="math display">\tau \cdot \frac{dv (t)}{dt} = E_l - v(t) + g_\text{exc} (t) \, (E_\text{exc} - v(t)) + g_\text{inh} (t) \, (E_\text{inh} - v(t)) + I(t)</span></p>
 <p>The discretization step has to be set to 0.1 ms:</p>
 <div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ANNarchy <span class="im">import</span> <span class="op">*</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>setup(dt<span class="op">=</span><span class="fl">0.1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ANNarchy <span class="im">import</span> <span class="op">*</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>setup(dt<span class="op">=</span><span class="fl">0.1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ANNarchy 4.6 (4.6.9.1) on linux (posix). </code></pre>
+<pre><code>ANNarchy 4.7 (4.7.1.5) on darwin (posix).</code></pre>
 </div>
 </div>
 <section id="neuron-definition" class="level2">
 <h2 class="anchored" data-anchor-id="neuron-definition">Neuron definition</h2>
 <div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>COBA <span class="op">=</span> Neuron(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    parameters<span class="op">=</span><span class="st">"""</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">        El = -60.0          : population</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">        Vr = -60.0          : population</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">        Erev_exc = 0.0      : population</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">        Erev_inh = -80.0    : population</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">        Vt = -50.0          : population</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">        tau = 20.0          : population</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_exc = 5.0       : population</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_inh = 10.0      : population</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">        I = 20.0            : population</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    equations<span class="op">=</span><span class="st">"""</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="st">        tau * dv/dt = (El - v) + g_exc * (Erev_exc - v) + g_inh * (Erev_inh - v ) + I</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_exc * dg_exc/dt = - g_exc</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_inh * dg_inh/dt = - g_inh</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    spike <span class="op">=</span> <span class="st">"v &gt; Vt"</span>,</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    reset <span class="op">=</span> <span class="st">"v = Vr"</span>,</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">5.0</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>COBA <span class="op">=</span> Neuron(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    parameters<span class="op">=</span><span class="st">"""</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">        El = -60.0          : population</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">        Vr = -60.0          : population</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">        Erev_exc = 0.0      : population</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">        Erev_inh = -80.0    : population</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">        Vt = -50.0          : population</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">        tau = 20.0          : population</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_exc = 5.0       : population</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_inh = 10.0      : population</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">        I = 20.0            : population</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    equations<span class="op">=</span><span class="st">"""</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">        tau * dv/dt = (El - v) + g_exc * (Erev_exc - v) + g_inh * (Erev_inh - v ) + I</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_exc * dg_exc/dt = - g_exc</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_inh * dg_inh/dt = - g_inh</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    spike <span class="op">=</span> <span class="st">"v &gt; Vt"</span>,</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    reset <span class="op">=</span> <span class="st">"v = Vr"</span>,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">5.0</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The neuron defines exponentially-decreasing conductance g_exc and g_inh for the excitatory and inhibitory conductances, respectively.</p>
 <p>It also defines a refractory period of 5 ms.</p>
@@ -321,40 +353,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="population" class="level2">
 <h2 class="anchored" data-anchor-id="population">Population</h2>
 <div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> Population(geometry<span class="op">=</span><span class="dv">4000</span>, neuron<span class="op">=</span>COBA)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Pe <span class="op">=</span> P[:<span class="dv">3200</span>]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Pi <span class="op">=</span> P[<span class="dv">3200</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> Population(geometry<span class="op">=</span><span class="dv">4000</span>, neuron<span class="op">=</span>COBA)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Pe <span class="op">=</span> P[:<span class="dv">3200</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Pi <span class="op">=</span> P[<span class="dv">3200</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We create a population of 4000 COBA neurons, and assign the 3200 first ones to the excitatory population and the 800 last ones to the inhibitory population.</p>
 <p>It would have been equivalent to declare two separate populations as:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Pe <span class="op">=</span> Population(geometry<span class="op">=</span><span class="dv">3200</span>, neuron<span class="op">=</span>COBA)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Pi <span class="op">=</span> Population(geometry<span class="op">=</span> <span class="dv">800</span>, neuron<span class="op">=</span>COBA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Pe <span class="op">=</span> Population(geometry<span class="op">=</span><span class="dv">3200</span>, neuron<span class="op">=</span>COBA)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Pi <span class="op">=</span> Population(geometry<span class="op">=</span> <span class="dv">800</span>, neuron<span class="op">=</span>COBA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>but splitting a global population allows to apply methods to all neurons, for example when recording all spikes with a single monitor, or when initializing populations parameters uniformly:</p>
 <div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>P.v <span class="op">=</span> Normal(<span class="op">-</span><span class="fl">55.0</span>, <span class="fl">5.0</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>P.g_exc <span class="op">=</span> Normal(<span class="fl">4.0</span>, <span class="fl">1.5</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>P.g_inh <span class="op">=</span> Normal(<span class="fl">20.0</span>, <span class="fl">12.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>P.v <span class="op">=</span> Normal(<span class="op">-</span><span class="fl">55.0</span>, <span class="fl">5.0</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>P.g_exc <span class="op">=</span> Normal(<span class="fl">4.0</span>, <span class="fl">1.5</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>P.g_inh <span class="op">=</span> Normal(<span class="fl">20.0</span>, <span class="fl">12.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="connections" class="level2">
 <h2 class="anchored" data-anchor-id="connections">Connections</h2>
 <p>The neurons are randomly connected with a probability of 0.02. Excitatory neurons project on all other neurons with the target “exc” and a weight of 0.6, while the inhibitory neurons have the target “inh” and a weight of 6.7.</p>
 <div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Ce <span class="op">=</span> Projection(pre<span class="op">=</span>Pe, post<span class="op">=</span>P, target<span class="op">=</span><span class="st">'exc'</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Ce.connect_fixed_probability(weights<span class="op">=</span><span class="fl">0.6</span>, probability<span class="op">=</span><span class="fl">0.02</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Ci <span class="op">=</span> Projection(pre<span class="op">=</span>Pi, post<span class="op">=</span>P, target<span class="op">=</span><span class="st">'inh'</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>Ci.connect_fixed_probability(weights<span class="op">=</span><span class="fl">6.7</span>, probability<span class="op">=</span><span class="fl">0.02</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Ce <span class="op">=</span> Projection(pre<span class="op">=</span>Pe, post<span class="op">=</span>P, target<span class="op">=</span><span class="st">'exc'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Ce.connect_fixed_probability(weights<span class="op">=</span><span class="fl">0.6</span>, probability<span class="op">=</span><span class="fl">0.02</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>Ci <span class="op">=</span> Projection(pre<span class="op">=</span>Pi, post<span class="op">=</span>P, target<span class="op">=</span><span class="st">'inh'</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>Ci.connect_fixed_probability(weights<span class="op">=</span><span class="fl">6.7</span>, probability<span class="op">=</span><span class="fl">0.02</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>&lt;ANNarchy.core.Projection.Projection at 0x7fbd9f2eb730&gt;</code></pre>
+<pre><code>&lt;ANNarchy.core.Projection.Projection at 0x117af1e20&gt;</code></pre>
 </div>
 </div>
 <div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">compile</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Compiling... 
-OK </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">compile</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="simulation" class="level2">
@@ -379,17 +407,17 @@ OK </code></pre>
 <div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Mean firing rate in the population: '</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">len</span>(t) <span class="op">/</span> <span class="fl">4000.</span>) <span class="op">+</span> <span class="st">'Hz'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Mean firing rate in the population: 1.96975Hz</code></pre>
+<pre><code>Mean firing rate in the population: 1.9125Hz</code></pre>
 </div>
 </div>
 <p>Finally, we can show the raster plot with pylab:</p>
-<div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="12">
+<div class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"white"</span>, palette<span class="op">=</span><span class="st">"muted"</span>, color_codes<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"talk"</span>)</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">12</span>))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>plt.plot(t, n, <span class="st">'.'</span>)</span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time (ms)'</span>)</span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'# neuron'</span>)</span>
@@ -401,16 +429,16 @@ OK </code></pre>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="COBA_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="COBA_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>We can also plot the population firing rate:</p>
-<div class="cell" data-execution_count="13">
+<p>We can also plot the mean firing rate in the population over time:</p>
+<div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> m.population_rate(data)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">8</span>))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.plot(np.linspace(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">1001</span>), rate)</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time (ms)'</span>)</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Population firing rate'</span>)</span>
@@ -420,7 +448,7 @@ OK </code></pre>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="COBA_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="COBA_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>

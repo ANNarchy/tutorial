@@ -257,7 +257,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../notebooks/Miconi.html" class="sidebar-item-text sidebar-link">Miconi network</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../notebooks/AdEx.html" class="sidebar-item-text sidebar-link">Adaptive Exponential IF neuron</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/SynapticTransmission.html" class="sidebar-item-text sidebar-link">Synaptic transmission</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/COBA.html" class="sidebar-item-text sidebar-link">COBA network</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/STP.html" class="sidebar-item-text sidebar-link">Short-term Plasticity</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notebooks/STDP.html" class="sidebar-item-text sidebar-link">STDP</a>
   </div>
 </li>
       </ul>
@@ -274,11 +299,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="echo-state-networks" class="level1">
 <h1>Echo state networks</h1>
-<p>If you run this notebook in colab, run this cell to install ANNarchy:</p>
+<p>If you run this notebook in colab, first run this cell to install ANNarchy:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install ANNarchy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s start by importing ANNarchy. The <code>clear()</code> command should be used in notebooks when recreating a network. <code>setup()</code> sets various parameters, such as the step size <code>dt</code>.</p>
+<p>Let’s start by importing ANNarchy.</p>
+<p>The <code>clear()</code> command is necessary in notebooks when recreating a network. If you re-run the cells creating a network without calling <code>clear()</code> first, populations will add up, and the results may not be what you expect.</p>
+<p><code>setup()</code> sets various parameters, such as the step size <code>dt</code> in milliseconds. By default, <code>dt</code> is 1.0, so the call is not necessary here.</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ANNarchy <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>clear()</span>

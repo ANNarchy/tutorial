@@ -751,7 +751,7 @@ compile()
 
 * You can now manipulate all parameters/variables from Python thanks to the Cython bindings.
 
-* A simulation is simply run for a fixed duration with:
+* A simulation is simply run for a fixed duration in milliseconds with:
 
 ```python
 simulate(1000.) # 1 second
@@ -783,9 +783,14 @@ recorded_r = m.get('r')
 recorded_w = n.get('w')
 ```
 
-* Warning: calling `get()` flushes the underlying arrays.
+::: {.callout-warning}
+Calling `get()` flushes the underlying arrays.
+:::
 
-* Warning: recording projections can quickly fill up the RAM...
+
+::: {.callout-warning}
+Recording projections can quickly fill up the RAM...
+:::
 
 # Notebook: Echo-State Network
 
@@ -819,7 +824,7 @@ IBCM = Synapse(
 
         dw/dt = eta * post.r * (post.r - theta) * pre.r : min=0.0, explicit
     """,
-    psp = " w * pre.r"
+    psp = "w * pre.r"
 )
 ```
 
@@ -859,6 +864,20 @@ Run it directly on colab: [BCM.ipynb](https://colab.research.google.com/github/A
 
 ::: {}
 ![Source: <http://www.scholarpedia.org/article/BCM_theory>](img/bcm.png){width=30%}
+:::
+
+
+
+# Notebook: Reward-modulated RC network of Miconi (2017)
+
+> Miconi T. (2017). Biologically plausible learning in recurrent neural networks reproduces neural dynamics observed during cognitive tasks. eLife 6:e20899. doi:10.7554/eLife.20899
+
+Download the Jupyter notebook: [Miconi.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/Miconi.ipynb){target="_blank"}
+
+Run it directly on colab: [Miconi.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/Miconi.ipynb){target="_blank"}
+
+::: {}
+![](img/miconi.png){width=100%}
 :::
 
 
@@ -997,6 +1016,14 @@ LIF = Neuron(
 :::
 
 
+# Notebook: Synaptic transmission
+
+Download the Jupyter notebook: [SynapticTransmission.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/SynapticTransmission.ipynb){target="_blank"}
+
+Run it directly on colab: [SynapticTransmission.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/SynapticTransmission.ipynb){target="_blank"}
+
+![](img/synaptictransmission.png){width=60%}
+
 
 # Notebook: COBA - Conductance-based E/I network
 
@@ -1005,14 +1032,14 @@ Download the Jupyter notebook: [COBA.ipynb](https://raw.githubusercontent.com/AN
 Run it directly on colab: [COBA.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/COBA.ipynb){target="_blank"}
 
 ::: {}
-![](img/COBA.png){width=60%}
+![](img/COBA.png){width=40%}
 :::
 
 $$\tau \cdot \frac{dv (t)}{dt} = E_l - v(t) + g_\text{exc} (t) \, (E_\text{exc} - v(t)) + g_\text{inh} (t) \, (E_\text{inh} - v(t)) + I(t)$$
 
 
 
-# Spiking synapses : Example of Short-term plasticity (STP)
+# Spiking synapses : Short-term plasticity (STP)
 
 * Spiking synapses can define a `pre_spike` field, defining what happens when a pre-synaptic spike arrives at the synapse.
 
@@ -1038,6 +1065,16 @@ STP = Synapse(
     """
 )
 ```
+
+
+# Notebook: STP
+
+Download the Jupyter notebook: [STP.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/STP.ipynb){target="_blank"}
+
+Run it directly on colab: [STP.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/STP.ipynb){target="_blank"}
+
+![](img/stp.png)
+
 
 # Spiking synapses : Example of Spike-Timing Dependent plasticity (STDP)
 
