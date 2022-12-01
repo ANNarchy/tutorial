@@ -1,0 +1,191 @@
+---
+title: Spiking networks
+---
+
+
+## Spiking neurons
+
+Spiking neurons must also define two additional fields:
+
+* `spike`: condition for emitting a spike.
+* `reset`: what happens after a spike is emitted (at the start of the refractory period).
+
+A refractory period in ms can also be specified.
+
+![](img/LIF-threshold.png){width=60%}
+
+Example of the Leaky Integrate-and-Fire:
+
+$$
+    C \, \frac{d v(t)}{dt} = - g_L \, (v(t) - V_L) + I(t)
+$$
+
+$$
+    \text{if} \; v(t) > V_T \; \text{emit a spike and reset.}
+$$
+
+
+```python
+LIF = Neuron(
+    parameters = """
+        C = 200.
+        g_L = 10.
+        E_L = -70.
+        v_T = 0.
+        v_r = -58.
+        I = 0.25
+    """,
+    equations = """
+        C * dv/dt = g_L * (E_L - v) + I : init=E_L     
+    """,
+    spike = "v >= v_T",
+    reset = "v = v_r",
+    refractory = 2.0
+)
+```
+
+::: {.callout-tip}
+## Notebook: AdEx neuron - Adaptive exponential Integrate-and-fire
+
+Download the Jupyter notebook: [AdEx.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/AdEx.ipynb){target="_blank"}
+
+Run it directly on colab: [AdEx.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/AdEx.ipynb){target="_blank"}
+
+:::
+
+## Conductances / currents
+
+A pre-synaptic spike arriving to a spiking neuron increases the conductance/current `g_target` (e.g. `g_exc` or `g_inh`, depending on the projection).
+
+```python
+LIF = Neuron(
+    parameters = "...",
+    equations = """
+        C*dv/dt = g_L*(E_L - v) + g_exc : init=E_L    
+    """,
+    spike = "v >= v_T",
+    reset = "v = v_r",
+    refractory = 2.0
+)
+```
+
+Each spike increments instantaneously `g_target` from the synaptic efficiency `w` of the corresponding synapse.
+
+```
+g_target += w
+```
+
+
+![](img/synaptictransmission.png)
+
+For **exponentially-decreasing** or **alpha-shaped** synapses, ODEs have to be introduced for the conductance/current.
+
+The exponential numerical method should be preferred, as integration is exact.
+
+```python
+LIF = Neuron(
+    parameters = "...",
+    equations = """
+        C*dv/dt = g_L*(E_L - v) + g_exc : init=E_L   
+
+        tau_exc * dg_exc/dt = - g_exc : exponential
+    """,
+    spike = "v >= v_T",
+    reset = "v = v_r",
+    refractory = 2.0
+)
+```
+
+
+::: {.callout-tip}
+## Notebook: Synaptic transmission
+
+Download the Jupyter notebook: [SynapticTransmission.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/SynapticTransmission.ipynb){target="_blank"}
+
+Run it directly on colab: [SynapticTransmission.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/SynapticTransmission.ipynb){target="_blank"}
+
+:::
+
+
+::: {.callout-tip}
+## Notebook: COBA - Conductance-based E/I network
+
+Download the Jupyter notebook: [COBA.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/CODA.ipynb){target="_blank"}
+
+Run it directly on colab: [COBA.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/COBA.ipynb){target="_blank"}
+
+:::
+
+
+
+# Short-term plasticity (STP)
+
+Spiking synapses can define a `pre_spike` field, defining what happens when a pre-synaptic spike arrives at the synapse.
+
+`g_target` is an alias for the corresponding post-synaptic conductance: it will be replaced by `g_exc` or `g_inh` depending on how the synapse is used.
+
+By default, a pre-synaptic spike increments the post-synaptic conductance from `w`: `g_target += w`
+
+```python
+STP = Synapse(
+    parameters = """
+        tau_rec = 100.0 : projection
+        tau_facil = 0.01 : projection
+        U = 0.5
+    """,
+    equations = """
+        dx/dt = (1 - x)/tau_rec : init = 1.0, event-driven
+        du/dt = (U - u)/tau_facil : init = 0.5, event-driven
+    """,
+    pre_spike="""
+        g_target += w * u * x
+        x *= (1 - u)
+        u += U * (1 - u)
+    """
+)
+```
+
+
+::: {.callout-tip}
+## Notebook: STP
+
+Download the Jupyter notebook: [STP.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/STP.ipynb){target="_blank"}
+
+Run it directly on colab: [STP.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/STP.ipynb){target="_blank"}
+
+:::
+
+## Spike-Timing Dependent plasticity (STDP)
+
+`post_spike` similarly defines what happens when a post-synaptic spike is emitted.
+
+```python
+STDP = Synapse(
+    parameters = """
+        tau_plus = 20.0 : projection ; tau_minus = 20.0 : projection
+        A_plus = 0.01 : projection   ; A_minus = 0.01 : projection
+        w_min = 0.0 : projection     ; w_max = 1.0 : projection
+    """,
+    equations = """
+        tau_plus  * dx/dt = -x : event-driven # pre-synaptic trace
+        tau_minus * dy/dt = -y : event-driven # post-synaptic trace
+    """,
+    pre_spike="""
+        g_target += w
+        x += A_plus * w_max
+        w = clip(w + y, w_min , w_max)
+    """,
+    post_spike="""
+        y -= A_minus * w_max
+        w = clip(w + x, w_min , w_max)
+    """)
+```
+
+::: {.callout-tip}
+## Notebook: STDP
+
+Download the Jupyter notebook: [STDP.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/STDP.ipynb){target="_blank"}
+
+Run it directly on colab: [STDP.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/STDP.ipynb){target="_blank"}
+
+:::

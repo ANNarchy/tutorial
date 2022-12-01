@@ -1,10 +1,10 @@
-input_file=slides/presentation.qmd
+input_file=tutorial/slides/presentation.qmd
 
 all: html
 
-html: $(input_file)
-	quarto render webpage --to html
-	quarto render slides --to revealjs
+html:
+	quarto render tutorial --to html
+	quarto render tutorial/slides --to revealjs
 
 slides: $(input_file)
-	quarto render slides --to revealjs
+	quarto render tutorial/slides --to revealjs

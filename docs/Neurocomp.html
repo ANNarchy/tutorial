@@ -20,11 +20,29 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -60,6 +78,22 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
 
 </head>
 
@@ -232,10 +266,217 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>Computational neuroscience is about explaining brain functioning at various levels (neural activity patterns, behavior, etc.) using biologically realistic neuro-computational models. Different types of neural and synaptic mathematical models are used in the field, abstracting biological complexity at different levels. There is no “right” level of biological plausibility for a model - you can always add more details -, but you have to find a paradigm that allows you to:</p>
+<ol type="1">
+<li>Explain the current experimental data.</li>
+<li>Make predictions that can be useful to experimentalists.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../slides/img/neurocomp.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Source: <span class="citation" data-cites="Kriegeskorte2018a">Kriegeskorte and Douglas (<a href="#ref-Kriegeskorte2018a" role="doc-biblioref">2018</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<section id="neuron-models" class="level2">
+<h2 class="anchored" data-anchor-id="neuron-models">Neuron models</h2>
+<p><strong>Rate-coded</strong> neurons only represent the instantaneous firing rate of a neuron:</p>
+<p><span class="math display">
+    \tau \, \frac{d v(t)}{dt} + v(t) = \sum_{i=1}^d w_{i, j} \, r_i(t) + b
+</span> <span class="math display">
+    r(t) = f(v(t))
+</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../slides/img/ratecoded-simple.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p><strong>Spiking</strong> neurons emit binary spikes when their membrane potential exceeds a threshold. Some examples:</p>
+<ul>
+<li>Leaky integrate-and-fire (LIF):</li>
+</ul>
+<p><span class="math display">
+    C \, \frac{d v(t)}{dt} = - g_L \, (v(t) - V_L) + I(t)
+</span> <span class="math display">
+    \text{if} \; v(t) &gt; V_T \; \text{emit a spike and reset.}
+</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../slides/img/LIF-threshold.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<ul>
+<li>Izhikevich quadratic IF <span class="citation" data-cites="Izhikevich2003">(<a href="#ref-Izhikevich2003" role="doc-biblioref">Izhikevich, 2003</a>)</span>:</li>
+</ul>
+<p><span class="math display">\begin{cases}
+    \displaystyle\frac{dv}{dt} = 0.04 \, v^2 + 5 \, v + 140 - u + I \\
+    \\
+    \displaystyle\frac{du}{dt} = a \, (b \, v - u) \\
+\end{cases}
+</span></p>
+<ul>
+<li>Adaptive exponential IF <span class="citation" data-cites="Brette2005">(AdEx, <a href="#ref-Brette2005" role="doc-biblioref">Brette and Gerstner, 2005</a>)</span>.</li>
+</ul>
+<p><span class="math display">
+\begin{cases}
+\begin{aligned}
+    C \, \frac{dv}{dt} = -g_L \ (v - E_L) + &amp; g_L \, \Delta_T \, \exp(\frac{v - v_T}{\Delta_T}) \\
+                                            &amp; + I - w
+\end{aligned}\\
+\\
+    \tau_w \, \displaystyle\frac{dw}{dt} = a \, (v - E_L) - w\\
+\end{cases}
+</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../slides/img/LIF-Izhi-AdEx.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Biological neurons do not all respond the same to an input current: Some fire regularly, some slow down with time., some emit bursts of spikes… Modern spiking neuron models allow to recreate these dynamics by changing just a few parameters.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../slides/img/adex.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Recurrent neural networks (e.g.&nbsp;randomly connected populations of neurons) can exhibit very rich <strong>dynamics</strong> even in the absence of inputs:</p>
+<ul>
+<li>Oscillations at the population level.</li>
+<li>Excitatory/inhibitory balance.</li>
+<li>Spatio-temporal separation of inputs (<strong>reservoir computing</strong>).</li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../slides/img/rc-network.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../slides/img/reservoir-simple.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="synaptic-plasticity" class="level2">
+<h2 class="anchored" data-anchor-id="synaptic-plasticity">Synaptic plasticity</h2>
+<section id="hebbian-plasticity" class="level3">
+<h3 class="anchored" data-anchor-id="hebbian-plasticity">Hebbian plasticity</h3>
+<p><strong>Hebbian learning</strong> postulates that synapses strengthen based on the <strong>correlation</strong> between the activity of the pre- and post-synaptic neurons:</p>
+<blockquote class="blockquote">
+<p>When an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process or metabolic change takes place in one or both cells such that A’s efficiency, as one of the cells firing B, is increased.</p>
+<p><strong>Donald Hebb</strong>, 1949</p>
+</blockquote>
+<p>In Hebbian learning, the weights increase proportionally to the the product of the pre- and post-synaptic firing rates:</p>
+<p><span class="math display">\frac{dw}{dt} = \eta \, r^\text{pre} \, r^\text{post}</span></p>
+<p>The <strong>BCM</strong> <span class="citation" data-cites="Bienenstock1982 Intrator1992">(<a href="#ref-Bienenstock1982" role="doc-biblioref">Bienenstock et al., 1982</a>; <a href="#ref-Intrator1992" role="doc-biblioref">Intrator and Cooper, 1992</a>)</span> plasticity rule allows LTP and LTD depending on the post-synaptic plasticity:</p>
+<p><span class="math display">\frac{dw}{dt} = \eta \, r^\text{pre} \, r^\text{post}  \,  (r^\text{post} - \mathbb{E}((r^\text{post})^2))</span></p>
+<p>The <strong>Covariance</strong> learning rule <span class="citation" data-cites="Dayan2001">(<a href="#ref-Dayan2001" role="doc-biblioref">Dayan and Abbott, 2001</a>)</span> compares the post-synaptic firing rate to a threshold:</p>
+<p><span class="math display">\frac{dw}{dt} = \eta \, r^\text{pre} \, (r^\text{post} - \mathbb{E}(r^\text{post}))</span></p>
+<p>The <strong>Oja</strong> learning rule <span class="citation" data-cites="Oja1982">(<a href="#ref-Oja1982" role="doc-biblioref">Oja, 1982</a>)</span> allows to limit infinite weight growth:</p>
+<p><span class="math display">\frac{dw}{dt}= \eta \, r^\text{pre} \, r^\text{post} - \alpha \, (r^\text{post})^2 \, w</span></p>
+<p>With rate-ocded networks, you can use virtually anything virtually any learning rule depending only on the pre- and post-synaptic firing rates, e.g.&nbsp;in <span class="citation" data-cites="Vitay2010">Vitay and Hamker (<a href="#ref-Vitay2010" role="doc-biblioref">2010</a>)</span>:</p>
+<p><span class="math display">\begin{aligned}
+    \frac{dw}{dt}  &amp; = \eta \, ( \text{DA}(t) - \overline{\text{DA}}) \, (r^\text{post} - \mathbb{E}(r^\text{post}) )^+  \, (r^\text{pre} - \mathbb{E}(r^\text{pre}))- \alpha(t) \,  ((r^\text{post} - \mathbb{E}(r^\text{post} )^+ )^2  \, w
+\end{aligned}
+</span></p>
+</section>
+<section id="stdp-spike-timing-dependent-plasticity" class="level3">
+<h3 class="anchored" data-anchor-id="stdp-spike-timing-dependent-plasticity">STDP: Spike-timing dependent plasticity</h3>
+<p>Synaptic efficiencies actually evolve depending on the the <strong>causation</strong> between the neuron’s firing patterns:</p>
+<ul>
+<li>If the pre-synaptic neuron fires <strong>before</strong> the post-synaptic one, the weight is increased (<strong>long-term potentiation</strong>). Pre causes Post to fire.</li>
+<li>If it fires <strong>after</strong>, the weight is decreased (<strong>long-term depression</strong>). Pre does not cause Post to fire.</li>
+</ul>
+<p>The STDP <span class="citation" data-cites="Bi2001">(spike-timing dependent plasticity, <a href="#ref-Bi2001" role="doc-biblioref">Bi and Poo, 2001</a>)</span> plasticity rule describes how the weight of a synapse evolves when the pre-synaptic neuron fires at <span class="math inline">t_\text{pre}</span> and the post-synaptic one fires at <span class="math inline">t_\text{post}</span>.</p>
+<p><span class="math display"> \frac{dw}{dt} = \begin{cases} A^+ \, \exp - \frac{t_\text{pre} - t_\text{post}}{\tau^+} \; \text{if} \; t_\text{post} &gt; t_\text{pre}\\  
+    \\
+    A^- \, \exp - \frac{t_\text{pre} - t_\text{post}}{\tau^-} \; \text{if} \; t_\text{pre} &gt; t_\text{post}\\ \end{cases}
+</span></p>
+<p>STDP can be implemented online using traces. More complex variants of STDP (triplet STDP) exist, but this is the main model of synaptic plasticity in spiking networks.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../slides/img/stdp2.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption class="figure-caption">Source: <span class="citation" data-cites="Bi2001">Bi and Poo (<a href="#ref-Bi2001" role="doc-biblioref">2001</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="neuro-computational-models" class="level2">
+<h2 class="anchored" data-anchor-id="neuro-computational-models">Neuro-computational models</h2>
+<p>Populations of neurons can be combined in functional <strong>neuro-computational models</strong> learning to solve various tasks. They require to implement one (or more) equations per neuron and synapse (thousands of neurons, millions of synapses..).</p>
+<p>Here are some recent examples for our lab:</p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><strong>Basal Ganglia</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../slides/img/BG.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Source: <span class="citation" data-cites="Villagrasa2018">Villagrasa et al. (<a href="#ref-Villagrasa2018" role="doc-biblioref">2018</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</div><div class="column" style="width:33%;">
+<p><strong>Hippocampus</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../slides/img/Hippocampus.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Source: <span class="citation" data-cites="Goenner2017">Gönner et al. (<a href="#ref-Goenner2017" role="doc-biblioref">2017</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</div><div class="column" style="width:33%;">
+<p><strong>Dopaminergic system</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../slides/img/Dopamine.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Source: <span class="citation" data-cites="Vitay2014">Vitay and Hamker (<a href="#ref-Vitay2014" role="doc-biblioref">2014</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 
-</main> <!-- /main -->
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Bi2001" class="csl-entry" role="doc-biblioentry">
+Bi, G., and Poo, M. (2001). Synaptic <span>Modification</span> by <span>Correlated Activity</span>: <span>Hebb</span>’s <span>Postulate Revisited</span>. <em>Annual Review of Neuroscience</em> 24, 139–166. doi:<a href="https://doi.org/10.1146/annurev.neuro.24.1.139">10.1146/annurev.neuro.24.1.139</a>.
+</div>
+<div id="ref-Bienenstock1982" class="csl-entry" role="doc-biblioentry">
+Bienenstock, E. L., Cooper, L. N., and Munro, P. W. (1982). Theory for the development of neuron selectivity: Orientation specificity and binocular interaction in visual cortex. <em>Journal of Neuroscience</em> 2, 32–48.
+</div>
+<div id="ref-Brette2005" class="csl-entry" role="doc-biblioentry">
+Brette, R., and Gerstner, W. (2005). Adaptive <span class="nocase">Exponential Integrate-and-Fire Model</span> as an <span>Effective Description</span> of <span>Neuronal Activity</span>. <em>Journal of Neurophysiology</em> 94, 3637–3642. doi:<a href="https://doi.org/10.1152/jn.00686.2005">10.1152/jn.00686.2005</a>.
+</div>
+<div id="ref-Dayan2001" class="csl-entry" role="doc-biblioentry">
+Dayan, P., and Abbott, L. F. (2001). <em>Theoretical <span>Neuroscience</span>: <span>Computational</span> and <span>Mathematical Modeling</span> of <span>Neural Systems</span></em>. <span>The MIT Press</span>.
+</div>
+<div id="ref-Goenner2017" class="csl-entry" role="doc-biblioentry">
+Gönner, L., Vitay, J., and Hamker, F. H. (2017). Predictive <span>Place-Cell Sequences</span> for <span>Goal-Finding Emerge</span> from <span>Goal Memory</span> and the <span>Cognitive Map</span>: <span>A Computational Model</span>. <em>Frontiers in Computational Neuroscience</em> 11, 84–84. doi:<a href="https://doi.org/10.3389/fncom.2017.00084">10.3389/fncom.2017.00084</a>.
+</div>
+<div id="ref-Intrator1992" class="csl-entry" role="doc-biblioentry">
+Intrator, N., and Cooper, L. N. (1992). Objective function formulation of the <span>BCM</span> theory of visual cortical plasticity: <span>Statistical</span> connections, stability conditions. <em>Neural Networks</em> 5, 3–17. doi:<a href="https://doi.org/10.1016/S0893-6080(05)80003-6">10.1016/S0893-6080(05)80003-6</a>.
+</div>
+<div id="ref-Izhikevich2003" class="csl-entry" role="doc-biblioentry">
+Izhikevich, E. M. (2003). Simple model of spiking neurons. <em>IEEE transactions on neural networks</em> 14, 1569–72. doi:<a href="https://doi.org/10.1109/TNN.2003.820440">10.1109/TNN.2003.820440</a>.
+</div>
+<div id="ref-Kriegeskorte2018a" class="csl-entry" role="doc-biblioentry">
+Kriegeskorte, N., and Douglas, P. K. (2018). Cognitive computational neuroscience. <em>Nature Neuroscience</em> 21, 1148–1160. doi:<a href="https://doi.org/10.1038/s41593-018-0210-5">10.1038/s41593-018-0210-5</a>.
+</div>
+<div id="ref-Oja1982" class="csl-entry" role="doc-biblioentry">
+Oja, E. (1982). A simplified neuron model as a principal component analyzer. <em>Journal of Mathematical Biology</em> 15, 267–73.
+</div>
+<div id="ref-Villagrasa2018" class="csl-entry" role="doc-biblioentry">
+Villagrasa, F., Baladron, J., Vitay, J., Schroll, H., Antzoulatos, E. G., Miller, E. K., et al. (2018). On the <span>Role</span> of <span>Cortex-Basal Ganglia Interactions</span> for <span>Category Learning</span>: <span>A Neurocomputational Approach</span>. <em>Journal of Neuroscience</em> 38, 9551–9562. doi:<a href="https://doi.org/10.1523/JNEUROSCI.0874-18.2018">10.1523/JNEUROSCI.0874-18.2018</a>.
+</div>
+<div id="ref-Vitay2010" class="csl-entry" role="doc-biblioentry">
+Vitay, J., and Hamker, F. H. (2010). A computational model of <span>Basal Ganglia</span> and its role in memory retrieval in rewarded visual memory tasks. <em>Frontiers in computational neuroscience</em> 4. doi:<a href="https://doi.org/10.3389/fncom.2010.00013">10.3389/fncom.2010.00013</a>.
+</div>
+<div id="ref-Vitay2014" class="csl-entry" role="doc-biblioentry">
+Vitay, J., and Hamker, F. H. (2014). Timing and expectation of reward: <span>A</span> neuro-computational model of the afferents to the ventral tegmental area. <em>Frontiers in Neurorobotics</em> 8. doi:<a href="https://doi.org/10.3389/fnbot.2014.00004">10.3389/fnbot.2014.00004</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

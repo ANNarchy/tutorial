@@ -20,11 +20,73 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -60,6 +122,22 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
 
 </head>
 
@@ -232,8 +310,193 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="spiking-neurons" class="level2">
+<h2 class="anchored" data-anchor-id="spiking-neurons">Spiking neurons</h2>
+<p>Spiking neurons must also define two additional fields:</p>
+<ul>
+<li><code>spike</code>: condition for emitting a spike.</li>
+<li><code>reset</code>: what happens after a spike is emitted (at the start of the refractory period).</li>
+</ul>
+<p>A refractory period in ms can also be specified.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/LIF-threshold.png" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+<p>Example of the Leaky Integrate-and-Fire:</p>
+<p><span class="math display">
+    C \, \frac{d v(t)}{dt} = - g_L \, (v(t) - V_L) + I(t)
+</span></p>
+<p><span class="math display">
+    \text{if} \; v(t) &gt; V_T \; \text{emit a spike and reset.}
+</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>LIF <span class="op">=</span> Neuron(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="st">        C = 200.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">        g_L = 10.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">        E_L = -70.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">        v_T = 0.</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">        v_r = -58.</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="st">        I = 0.25</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    equations <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="st">        C * dv/dt = g_L * (E_L - v) + I : init=E_L     </span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    spike <span class="op">=</span> <span class="st">"v &gt;= v_T"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    reset <span class="op">=</span> <span class="st">"v = v_r"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Notebook: AdEx neuron - Adaptive exponential Integrate-and-fire
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/AdEx.ipynb" target="_blank">AdEx.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/AdEx.ipynb" target="_blank">AdEx.ipynb</a></p>
+</div>
+</div>
+</section>
+<section id="conductances-currents" class="level2">
+<h2 class="anchored" data-anchor-id="conductances-currents">Conductances / currents</h2>
+<p>A pre-synaptic spike arriving to a spiking neuron increases the conductance/current <code>g_target</code> (e.g.&nbsp;<code>g_exc</code> or <code>g_inh</code>, depending on the projection).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>LIF <span class="op">=</span> Neuron(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">"..."</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    equations <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">        C*dv/dt = g_L*(E_L - v) + g_exc : init=E_L    </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    spike <span class="op">=</span> <span class="st">"v &gt;= v_T"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    reset <span class="op">=</span> <span class="st">"v = v_r"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Each spike increments instantaneously <code>g_target</code> from the synaptic efficiency <code>w</code> of the corresponding synapse.</p>
+<pre><code>g_target += w</code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/synaptictransmission.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>For <strong>exponentially-decreasing</strong> or <strong>alpha-shaped</strong> synapses, ODEs have to be introduced for the conductance/current.</p>
+<p>The exponential numerical method should be preferred, as integration is exact.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>LIF <span class="op">=</span> Neuron(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">"..."</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    equations <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">        C*dv/dt = g_L*(E_L - v) + g_exc : init=E_L   </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_exc * dg_exc/dt = - g_exc : exponential</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    spike <span class="op">=</span> <span class="st">"v &gt;= v_T"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    reset <span class="op">=</span> <span class="st">"v = v_r"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    refractory <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Notebook: Synaptic transmission
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/SynapticTransmission.ipynb" target="_blank">SynapticTransmission.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/SynapticTransmission.ipynb" target="_blank">SynapticTransmission.ipynb</a></p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Notebook: COBA - Conductance-based E/I network
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/CODA.ipynb" target="_blank">COBA.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/COBA.ipynb" target="_blank">COBA.ipynb</a></p>
+</div>
+</div>
+</section>
+<section id="short-term-plasticity-stp" class="level1">
+<h1>Short-term plasticity (STP)</h1>
+<p>Spiking synapses can define a <code>pre_spike</code> field, defining what happens when a pre-synaptic spike arrives at the synapse.</p>
+<p><code>g_target</code> is an alias for the corresponding post-synaptic conductance: it will be replaced by <code>g_exc</code> or <code>g_inh</code> depending on how the synapse is used.</p>
+<p>By default, a pre-synaptic spike increments the post-synaptic conductance from <code>w</code>: <code>g_target += w</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>STP <span class="op">=</span> Synapse(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_rec = 100.0 : projection</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_facil = 0.01 : projection</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">        U = 0.5</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    equations <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="st">        dx/dt = (1 - x)/tau_rec : init = 1.0, event-driven</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">        du/dt = (U - u)/tau_facil : init = 0.5, event-driven</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    pre_spike<span class="op">=</span><span class="st">"""</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">        g_target += w * u * x</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">        x *= (1 - u)</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st">        u += U * (1 - u)</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Notebook: STP
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/STP.ipynb" target="_blank">STP.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/STP.ipynb" target="_blank">STP.ipynb</a></p>
+</div>
+</div>
+<section id="spike-timing-dependent-plasticity-stdp" class="level2">
+<h2 class="anchored" data-anchor-id="spike-timing-dependent-plasticity-stdp">Spike-Timing Dependent plasticity (STDP)</h2>
+<p><code>post_spike</code> similarly defines what happens when a post-synaptic spike is emitted.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>STDP <span class="op">=</span> Synapse(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_plus = 20.0 : projection ; tau_minus = 20.0 : projection</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="st">        A_plus = 0.01 : projection   ; A_minus = 0.01 : projection</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">        w_min = 0.0 : projection     ; w_max = 1.0 : projection</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    equations <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_plus  * dx/dt = -x : event-driven # pre-synaptic trace</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_minus * dy/dt = -y : event-driven # post-synaptic trace</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    pre_spike<span class="op">=</span><span class="st">"""</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">        g_target += w</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="st">        x += A_plus * w_max</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="st">        w = clip(w + y, w_min , w_max)</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    post_spike<span class="op">=</span><span class="st">"""</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="st">        y -= A_minus * w_max</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="st">        w = clip(w + x, w_min , w_max)</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Notebook: STDP
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/STDP.ipynb" target="_blank">STDP.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/STDP.ipynb" target="_blank">STDP.ipynb</a></p>
+</div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

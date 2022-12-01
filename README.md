@@ -4,33 +4,28 @@ This tutorial presents the neuro-simulator ANNarchy (Artificial Neural Networks 
 
 <https://github.com/ANNarchy/ANNarchy>
 
-The slides are available at: 
+The webpage and the accompnying slides and notebooks are available at: 
 
 <https://annarchy.github.io/ANNarchy-tutorial>.
 
 
+## Generating the tutorial
 
-## About the slides
+The tutorial is made with Quarto <https://quarto.org>.
 
-### Installation
-
-The repository should be cloned with all its submodules:
+To generate the webpage in `docs`, use:
 
 ```bash
-git clone --recursive https://github.com/ANNarchy/ANNarchy-tutorial.git
+quarto render tutorial
 ```
 
-This package allows to generate a HTML5 + reveal.js presentation from Markdown using `pandoc`. `pandoc` of course needs to be installed. 
+To generate the slides:
 
-To generate the html file:
-
-```
-make
+```bash
+quarto render tutorial/slides --to revealjs
 ```
 
-The resulting HTML file has to be opened in a recent and decent browser (i.e. everything except IE).
-
-### Shortcuts
+### Shortcuts for thr slides
 
 * `f`: goes fullscreen.
 * `e`: switches to printing mode (`?print-pdf` in the location bar). 

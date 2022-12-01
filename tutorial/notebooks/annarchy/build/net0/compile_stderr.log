@@ -1,0 +1,8 @@
+In file included from ANNarchyCore0.cpp:780:
+In file included from /Users/vitay/Applications/miniforge3/lib/python3.9/site-packages/numpy/core/include/numpy/arrayobject.h:5:
+In file included from /Users/vitay/Applications/miniforge3/lib/python3.9/site-packages/numpy/core/include/numpy/ndarrayobject.h:12:
+In file included from /Users/vitay/Applications/miniforge3/lib/python3.9/site-packages/numpy/core/include/numpy/ndarraytypes.h:1948:
+/Users/vitay/Applications/miniforge3/lib/python3.9/site-packages/numpy/core/include/numpy/npy_1_7_deprecated_api.h:17:2: warning: "Using deprecated NumPy API, disable it with "          "#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION" [-W#warnings]
+#warning "Using deprecated NumPy API, disable it with " \
+ ^
+1 warning generated.

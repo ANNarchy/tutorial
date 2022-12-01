@@ -1,0 +1,354 @@
+---
+title: Rate-coded networks
+---
+
+## Rate-coded networks
+
+In thus section, we will take as an example an **Echo-State Network** (ESN), the rate-coded variant of **reservoir computing** introduced by @Jaeger2001. ESNs are recurrent neural networks with fixed recurrent weights. A linear readout is usually able to apprximate any traget signal based on the dynamic recurrent activity.
+
+
+![](img/rc.jpg)
+
+ESN rate-coded neurons follow first-order ODEs:
+
+$$
+    \tau \frac{dx(t)}{dt} + x(t) = \sum w^\text{in} \, r^\text{in}(t) + g \, \sum w^\text{rec} \, r(t) + \xi(t)
+$$
+
+$$
+    r(t) = \tanh(x(t))
+$$
+
+In ANNarchy, neural dynamics are described by the equation-oriented interface:
+
+```python
+from ANNarchy import *
+
+ESN_Neuron = Neuron(
+    parameters = """
+        tau = 30.0   : population   # Time constant
+        g = 1.0      : population   # Scaling
+        noise = 0.01 : population   # Noise level
+    """,
+    equations="""
+        tau * dx/dt + x = sum(in) + g * sum(exc) + noise * Uniform(-1, 1)  : init=0.0
+ 
+        r = tanh(x)
+    """
+)
+```
+
+### Parameters
+
+All parameters used in the equations must be declared in the **Neuron** definition.
+
+```python
+    parameters = """
+        tau = 30.0   : population   # Time constant
+        g = 1.0      : population   # Scaling
+        noise = 0.01 : population   # Noise level
+    """
+```
+Parameters can have one value per neuron in the population (default) or be common to all neurons (flag `population` or `projection`).
+
+Parameters and variables are double floats by default, but the type can be specified (`int`, `bool`).
+
+### Variables
+
+Variables are evaluated at each time step **in the order of their declaration**, except for coupled ODEs.
+
+```python
+    equations="""
+        tau * dx/dt + x = sum(in) + g * sum(exc) + noise * Uniform(-1, 1) : init=0.0
+
+        r = tanh(x)
+    """
+```
+
+The output variable of a rate-coded neuron must be named `r`.
+
+Variables can be updated with assignments (`=`, `+=`, etc) or by defining first order ODEs. The math C library symbols can be used (`tanh`, `cos`, `exp`, etc).
+
+Initial values at the start of the simulation can be specified with `init` (default: 0.0). 
+
+Lower/higher bounds on the values of the variables can be set with the `min`/`max` flags:
+
+```
+r = x : min=0.0 # ReLU
+```
+
+Additive noise can be drawn from several distributions, including `Uniform`, `Normal`, `LogNormal`, `Exponential`, `Gamma`...
+
+
+### ODEs
+
+First-order ODEs are parsed and manipulated using `sympy`:
+
+```python
+    # All equivalent:
+    tau * dx/dt + x = I
+    tau * dx/dt = I - x
+    dx/dt = (I - x)/tau
+```
+
+The generated C++ code applies a numerical method (fixed step size `dt`) for all neurons:
+
+```c++
+#pragma omp simd
+for(unsigned int i = 0; i < size; i++){
+    double _x = (I[i] - x[i])/tau;
+    x[i] += dt*_x ;
+    r[i] = tanh(x[i]);
+}
+```
+Several numerical methods are available:
+
+* Explicit (forward) Euler (default): 
+
+```python
+tau * dx/dt + x = I : explicit
+```
+
+* Implicit (backward) Euler: 
+
+```python
+tau * dx/dt + x = I : implicit
+```
+
+* Exponential Euler (exact for linear ODE):  
+
+```python
+tau * dx/dt + x = I : exponential
+```
+
+* Midpoint (RK2): 
+
+```python
+tau * dx/dt + x = I : midpoint
+```
+
+* Event-driven (spiking synapses): 
+
+```python
+tau * dx/dt + x = I : event-driven
+```
+
+See <https://annarchy.github.io/manual/NumericalMethods/> for more explanations.
+
+
+### Populations
+
+Populations are creating by specifying a number of neurons and a neuron type:
+
+```python
+pop = Population(1000, ESN_Neuron)
+```
+
+For visualization purposes or when using convolutional layers, a tuple geometry can be passed instead of the size:
+
+```python
+pop = Population((100, 100), ESN_Neuron)
+```
+
+All parameters and variables become attributes of the population (read and write) as numpy arrays:
+
+```python
+pop.tau = np.linspace(20.0, 40.0, 1000)
+pop.r = np.tanh(pop.v)
+```
+
+Slices of populations are called `PopulationView` and can be addressed separately:
+
+```python
+pop = Population(1000, ESN_Neuron)
+E = pop[:800]
+I = pop[800:]
+```
+
+### Projections
+
+Projections connect two populations (or views) in a uni-directional way.
+
+```python
+proj_exc = Projection(E, pop, 'exc')
+proj_inh = Projection(I, pop, 'inh')
+```
+
+Each target (`'exc', 'inh', 'AMPA', 'NMDA', 'GABA'`) can be defined as needed and will be treated differently by the post-synaptic neurons.
+
+The weighted sum of inputs for a specific target is accessed in the equations by `sum(target)`:
+
+```python
+    equations="""
+        tau * dx/dt + x = sum(exc) - sum(inh)
+
+        r = tanh(x)
+    """
+```
+
+It is therefore possible to model modulatory effects, divisive inhibition, etc.
+
+### Connection methods
+
+Projections must be populated with a connectivity matrix (who is connected to who), a weight `w` and optionally a delay `d` (uniform or variable).
+
+Several patterns are predefined:
+
+```python
+proj.connect_all_to_all(weights=Normal(0.0, 1.0), delays=2.0, allow_self_connections=False)
+
+proj.connect_one_to_one(weights=1.0, delays=Uniform(1.0, 10.0))
+
+proj.connect_fixed_number_pre(number=20, weights=1.0)
+
+proj.connect_fixed_number_post(number=20, weights=1.0)
+
+proj.connect_fixed_probability(probability=0.2, weights=1.0)
+
+proj.connect_gaussian(amp=1.0, sigma=0.2, limit=0.001)
+
+proj.connect_dog(amp_pos=1.0, sigma_pos=0.2, amp_neg=0.3, sigma_neg=0.7, limit=0.001)
+```
+
+But you can also load Numpy arrays or Scipy sparse matrices. Example for synfire chains:
+
+```python
+w = np.array([[None]*pre.size]*post.size)
+
+for i in range(post.size):
+    w[i, (i-1)%pre.size] = 1.0
+
+proj.connect_from_matrix(w)
+```
+
+```python
+w = lil_matrix((pre.size, post.size))
+
+for i in range(pre.size):
+    w[pre.size, (i+1)%post.size] = 1.0
+
+proj.connect_from_sparse(w)
+```
+
+
+### Compiling and running the simulation
+
+Once all populations and projections are created, you have to generate to the C++ code and compile it:
+
+```python
+compile()
+```
+
+You can now manipulate all parameters/variables from Python thanks to the Cython bindings.
+
+A simulation is simply run for a fixed duration in milliseconds with:
+
+```python
+simulate(1000.) # 1 second
+```
+
+You can also run a simulation until a criteria is filled, check <https://annarchy.github.io/manual/Simulation/#early-stopping>
+
+### Monitoring
+
+By default, a simulation is run in C++ without interaction with Python. You may want to record some variables (neural or synaptic) during the simulation with a `Monitor`:
+
+```python
+m = Monitor(pop, ['v', 'r'])
+
+n = Monitor(proj, ['w'])
+```
+
+After the simulation, you can retrieve the recordings with:
+
+```python
+recorded_v = m.get('v')
+
+recorded_r = m.get('r')
+
+recorded_w = n.get('w')
+```
+
+::: {.callout-warning}
+* Calling `get()` flushes the underlying arrays.
+* Recording projections can quickly fill up the RAM...
+:::
+
+::: {.callout-tip}
+# Notebook: Echo-State Network
+
+Download the Jupyter notebook: [RC.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/RC.ipynb){target="_blank"}
+
+Run it directly on colab: [RC.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/RC.ipynb){target="_blank"}
+
+:::
+
+
+
+## Plasticity in rate-coded networks
+
+
+Synapses can also implement plasticity rules that will be evaluated after each neural update.
+
+Example of the Intrator & Cooper BCM learning rule:
+
+$$\Delta w = \eta \, r^\text{pre} \, r^\text{post}  \,  (r^\text{post} - \mathbb{E}[(r^\text{post})^2])$$
+
+```python
+IBCM = Synapse(
+    parameters = """
+        eta = 0.01 : projection
+        tau = 2000.0 : projection
+    """,
+    equations = """
+        tau * dtheta/dt + theta = post.r^2 : postsynaptic, exponential
+
+        dw/dt = eta * post.r * (post.r - theta) * pre.r : min=0.0, explicit
+    """,
+    psp = "w * pre.r"
+)
+```
+
+Each synapse can access pre- and post-synaptic variables with `pre.` and `post.`.
+The `postsynaptic` flag allows to do computations only once per post-synaptic neurons.
+
+`psp` optionally defines what will be summed by the post-synaptic neuron (e.g. `psp = "w * log(pre.r)"`).
+
+The synapse type just has to be passed to the Projection:
+
+```python
+proj = Projection(inp, pop, 'exc', synapse=IBCM)
+```
+
+Synaptic variables can be accessed as lists of lists for the whole projection:
+
+```python
+proj.w
+proj.theta
+```
+
+or for a single post-synaptic neuron:
+
+```python
+proj[10].w
+```
+
+
+::: {.callout-tip}
+## Notebook: IBCM learning rule [@Intrator1992]
+
+Download the Jupyter notebook: [BCM.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/BCM.ipynb){target="_blank"}
+
+Run it directly on colab: [BCM.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/BCM.ipynb){target="_blank"}
+:::
+
+
+
+::: {.callout-tip}
+## Notebook: Reward-modulated RC network of @Miconi2017
+
+Download the Jupyter notebook: [Miconi.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/Miconi.ipynb){target="_blank"}
+
+Run it directly on colab: [Miconi.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/Miconi.ipynb){target="_blank"}
+
+:::
