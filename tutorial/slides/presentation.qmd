@@ -792,9 +792,9 @@ Recording projections can quickly fill up the RAM...
 
 # Notebook: Echo-State Network
 
-Download the Jupyter notebook: [RC.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/RC.ipynb){target="_blank"}
+Download the Jupyter notebook: [RC.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/RC.ipynb){target="_blank"}
 
-Run it directly on colab: [RC.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/RC.ipynb){target="_blank"}
+Run it directly on colab: [RC.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/RC.ipynb){target="_blank"}
 
 ::: {}
 ![](../img/rc.jpg){width=80%}
@@ -856,9 +856,9 @@ proj[10].w
 
 # Notebook: IBCM learning rule
 
-Download the Jupyter notebook: [BCM.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/BCM.ipynb){target="_blank"}
+Download the Jupyter notebook: [BCM.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/BCM.ipynb){target="_blank"}
 
-Run it directly on colab: [BCM.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/BCM.ipynb){target="_blank"}
+Run it directly on colab: [BCM.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/BCM.ipynb){target="_blank"}
 
 ::: {}
 ![Source: <http://www.scholarpedia.org/article/BCM_theory>](../img/bcm.png){width=30%}
@@ -870,9 +870,9 @@ Run it directly on colab: [BCM.ipynb](https://colab.research.google.com/github/A
 
 > Miconi T. (2017). Biologically plausible learning in recurrent neural networks reproduces neural dynamics observed during cognitive tasks. eLife 6:e20899. doi:10.7554/eLife.20899
 
-Download the Jupyter notebook: [Miconi.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/Miconi.ipynb){target="_blank"}
+Download the Jupyter notebook: [Miconi.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/Miconi.ipynb){target="_blank"}
 
-Run it directly on colab: [Miconi.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/Miconi.ipynb){target="_blank"}
+Run it directly on colab: [Miconi.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/Miconi.ipynb){target="_blank"}
 
 ::: {}
 ![](../img/miconi.png){width=100%}
@@ -935,9 +935,9 @@ LIF = Neuron(
 
 # Notebook: AdEx neuron - Adaptive exponential Integrate-and-fire
 
-Download the Jupyter notebook: [AdEx.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/AdEx.ipynb){target="_blank"}
+Download the Jupyter notebook: [AdEx.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/AdEx.ipynb){target="_blank"}
 
-Run it directly on colab: [AdEx.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/AdEx.ipynb){target="_blank"}
+Run it directly on colab: [AdEx.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/AdEx.ipynb){target="_blank"}
 
 ![](../img/adex.png){width=60%}
 
@@ -1016,18 +1016,18 @@ LIF = Neuron(
 
 # Notebook: Synaptic transmission
 
-Download the Jupyter notebook: [SynapticTransmission.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/SynapticTransmission.ipynb){target="_blank"}
+Download the Jupyter notebook: [SynapticTransmission.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/SynapticTransmission.ipynb){target="_blank"}
 
-Run it directly on colab: [SynapticTransmission.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/SynapticTransmission.ipynb){target="_blank"}
+Run it directly on colab: [SynapticTransmission.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/SynapticTransmission.ipynb){target="_blank"}
 
 ![](../img/synaptictransmission.png){width=60%}
 
 
 # Notebook: COBA - Conductance-based E/I network
 
-Download the Jupyter notebook: [COBA.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/CODA.ipynb){target="_blank"}
+Download the Jupyter notebook: [COBA.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/CODA.ipynb){target="_blank"}
 
-Run it directly on colab: [COBA.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/COBA.ipynb){target="_blank"}
+Run it directly on colab: [COBA.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/COBA.ipynb){target="_blank"}
 
 ::: {}
 ![](../img/COBA.png){width=40%}
@@ -1067,9 +1067,9 @@ STP = Synapse(
 
 # Notebook: STP
 
-Download the Jupyter notebook: [STP.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/STP.ipynb){target="_blank"}
+Download the Jupyter notebook: [STP.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/STP.ipynb){target="_blank"}
 
-Run it directly on colab: [STP.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/STP.ipynb){target="_blank"}
+Run it directly on colab: [STP.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/STP.ipynb){target="_blank"}
 
 ![](../img/stp.png)
 
@@ -1102,9 +1102,9 @@ STDP = Synapse(
 
 # Notebook: STDP
 
-Download the Jupyter notebook: [STDP.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/STDP.ipynb){target="_blank"}
+Download the Jupyter notebook: [STDP.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/STDP.ipynb){target="_blank"}
 
-Run it directly on colab: [STDP.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/STDP.ipynb){target="_blank"}
+Run it directly on colab: [STDP.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/STDP.ipynb){target="_blank"}
 
 $$\tau^+ \, \frac{d x(t)}{dt} = -x(t)$$
 $$\tau^- \, \frac{d y(t)}{dt} = -y(t)$$

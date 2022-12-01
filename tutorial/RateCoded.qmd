@@ -277,9 +277,9 @@ recorded_w = n.get('w')
 ::: {.callout-tip}
 # Notebook: Echo-State Network
 
-Download the Jupyter notebook: [RC.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/RC.ipynb){target="_blank"}
+Download the Jupyter notebook: [RC.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/RC.ipynb){target="_blank"}
 
-Run it directly on colab: [RC.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/RC.ipynb){target="_blank"}
+Run it directly on colab: [RC.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/RC.ipynb){target="_blank"}
 
 :::
 
@@ -337,9 +337,9 @@ proj[10].w
 ::: {.callout-tip}
 ## Notebook: IBCM learning rule [@Intrator1992]
 
-Download the Jupyter notebook: [BCM.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/BCM.ipynb){target="_blank"}
+Download the Jupyter notebook: [BCM.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/BCM.ipynb){target="_blank"}
 
-Run it directly on colab: [BCM.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/BCM.ipynb){target="_blank"}
+Run it directly on colab: [BCM.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/BCM.ipynb){target="_blank"}
 :::
 
 
@@ -347,8 +347,8 @@ Run it directly on colab: [BCM.ipynb](https://colab.research.google.com/github/A
 ::: {.callout-tip}
 ## Notebook: Reward-modulated RC network of @Miconi2017
 
-Download the Jupyter notebook: [Miconi.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/Miconi.ipynb){target="_blank"}
+Download the Jupyter notebook: [Miconi.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/Miconi.ipynb){target="_blank"}
 
-Run it directly on colab: [Miconi.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/Miconi.ipynb){target="_blank"}
+Run it directly on colab: [Miconi.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/Miconi.ipynb){target="_blank"}
 
 :::

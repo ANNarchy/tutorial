@@ -13,7 +13,7 @@ website:
       - text: "Slides"
         file: slides/presentation.html
       - text: "Notebooks"
-        file: notebooks/Content.qmd
+        href: https://github.com/ANNarchy/tutorial/tree/master/tutorial/notebooks
       - icon: github
         href: https://github.com/ANNarchy/ANNarchy
         aria-label: GitHub

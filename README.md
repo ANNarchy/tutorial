@@ -6,7 +6,7 @@ This tutorial presents the neuro-simulator ANNarchy (Artificial Neural Networks 
 
 The webpage and the accompnying slides and notebooks are available at: 
 
-<https://annarchy.github.io/ANNarchy-tutorial>.
+<https://annarchy.github.io/tutorial>.
 
 
 ## Generating the tutorial

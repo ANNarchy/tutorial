@@ -47,9 +47,9 @@ LIF = Neuron(
 ::: {.callout-tip}
 ## Notebook: AdEx neuron - Adaptive exponential Integrate-and-fire
 
-Download the Jupyter notebook: [AdEx.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/AdEx.ipynb){target="_blank"}
+Download the Jupyter notebook: [AdEx.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/AdEx.ipynb){target="_blank"}
 
-Run it directly on colab: [AdEx.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/AdEx.ipynb){target="_blank"}
+Run it directly on colab: [AdEx.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/AdEx.ipynb){target="_blank"}
 
 :::
 
@@ -100,9 +100,9 @@ LIF = Neuron(
 ::: {.callout-tip}
 ## Notebook: Synaptic transmission
 
-Download the Jupyter notebook: [SynapticTransmission.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/SynapticTransmission.ipynb){target="_blank"}
+Download the Jupyter notebook: [SynapticTransmission.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/SynapticTransmission.ipynb){target="_blank"}
 
-Run it directly on colab: [SynapticTransmission.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/SynapticTransmission.ipynb){target="_blank"}
+Run it directly on colab: [SynapticTransmission.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/SynapticTransmission.ipynb){target="_blank"}
 
 :::
 
@@ -110,9 +110,9 @@ Run it directly on colab: [SynapticTransmission.ipynb](https://colab.research.go
 ::: {.callout-tip}
 ## Notebook: COBA - Conductance-based E/I network
 
-Download the Jupyter notebook: [COBA.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/CODA.ipynb){target="_blank"}
+Download the Jupyter notebook: [COBA.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/CODA.ipynb){target="_blank"}
 
-Run it directly on colab: [COBA.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/COBA.ipynb){target="_blank"}
+Run it directly on colab: [COBA.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/COBA.ipynb){target="_blank"}
 
 :::
 
@@ -149,9 +149,9 @@ STP = Synapse(
 ::: {.callout-tip}
 ## Notebook: STP
 
-Download the Jupyter notebook: [STP.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/STP.ipynb){target="_blank"}
+Download the Jupyter notebook: [STP.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/STP.ipynb){target="_blank"}
 
-Run it directly on colab: [STP.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/STP.ipynb){target="_blank"}
+Run it directly on colab: [STP.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/STP.ipynb){target="_blank"}
 
 :::
 
@@ -184,8 +184,8 @@ STDP = Synapse(
 ::: {.callout-tip}
 ## Notebook: STDP
 
-Download the Jupyter notebook: [STDP.ipynb](https://raw.githubusercontent.com/ANNarchy/ANNarchy-tutorial/master/webpage/notebooks/STDP.ipynb){target="_blank"}
+Download the Jupyter notebook: [STDP.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/STDP.ipynb){target="_blank"}
 
-Run it directly on colab: [STDP.ipynb](https://colab.research.google.com/github/ANNarchy/ANNarchy-tutorial/blob/master/webpage/notebooks/STDP.ipynb){target="_blank"}
+Run it directly on colab: [STDP.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/STDP.ipynb){target="_blank"}
 
 :::
