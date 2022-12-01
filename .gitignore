@@ -1,5 +1,5 @@
 *DS_Store
 *.pyc
-webpage/notebooks/annarchy
+tutorial/notebooks/annarchy
 refs
-webpage/img
+tutorial/.quarto
