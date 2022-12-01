@@ -25,13 +25,13 @@ website:
     contents:
       - text: "About"
         file: index.qmd
-      - section: "Tutorial"
+      - section: "**Tutorial**"
         contents:
         - Neurocomp.qmd
         - ANNarchy.qmd
         - RateCoded.qmd
         - Spiking.qmd
-      - section: "Notebooks"
+      - section: "**Notebooks**"
         contents:
           - notebooks/RC.ipynb
           - notebooks/BCM.ipynb

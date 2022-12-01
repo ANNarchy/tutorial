@@ -8,7 +8,7 @@ Computational neuroscience is about explaining brain functioning at various leve
 2. Make predictions that can be useful to experimentalists.
 
 
-![Source: @Kriegeskorte2018a](../slides/img/neurocomp.png)
+![Source: @Kriegeskorte2018a](img/neurocomp.png)
 
 ## Neuron models
 
@@ -22,7 +22,7 @@ $$
 $$
 
 
-![](../slides/img/ratecoded-simple.png)
+![](img/ratecoded-simple.png)
 
 
 **Spiking** neurons emit binary spikes when their membrane potential exceeds a threshold. Some examples:
@@ -36,7 +36,7 @@ $$
     \text{if} \; v(t) > V_T \; \text{emit a spike and reset.}
 $$
 
-![](../slides/img/LIF-threshold.png)
+![](img/LIF-threshold.png)
 
 
 * Izhikevich quadratic IF [@Izhikevich2003]:
@@ -62,11 +62,11 @@ $$
 $$
 
 
-![](../slides/img/LIF-Izhi-AdEx.png)
+![](img/LIF-Izhi-AdEx.png)
 
 Biological neurons do not all respond the same to an input current: Some fire regularly, some slow down with time., some emit bursts of spikes... Modern spiking neuron models allow to recreate these dynamics by changing just a few parameters.
 
-![](../slides/img/adex.png)
+![](img/adex.png)
 
 
 Recurrent neural networks (e.g. randomly connected populations of neurons) can exhibit very rich **dynamics** even in the absence of inputs:
@@ -78,12 +78,12 @@ Recurrent neural networks (e.g. randomly connected populations of neurons) can e
 ::: {.columns}
 ::: {.column}
 
-![](../slides/img/rc-network.jpg)
+![](img/rc-network.jpg)
 
 :::
 ::: {.column}
 
-![](../slides/img/reservoir-simple.png)
+![](img/reservoir-simple.png)
 
 :::
 :::
@@ -145,7 +145,7 @@ $$
 
 STDP can be implemented online using traces. More complex variants of STDP (triplet STDP) exist, but this is the main model of synaptic plasticity in spiking networks.
 
-![Source: @Bi2001](../slides/img/stdp2.png){width=50%}
+![Source: @Bi2001](img/stdp2.png){width=50%}
 
 
 
@@ -160,7 +160,7 @@ Here are some recent examples for our lab:
 
 **Basal Ganglia** 
 
-![Source: @Villagrasa2018](../slides/img/BG.png)
+![Source: @Villagrasa2018](img/BG.png)
 
 ::: 
 ::: {.column width=33%}
@@ -168,14 +168,14 @@ Here are some recent examples for our lab:
 
 **Hippocampus** 
 
-![Source: @Goenner2017](../slides/img/Hippocampus.png)
+![Source: @Goenner2017](img/Hippocampus.png)
 
 :::
 ::: {.column width=33%}
 
 **Dopaminergic system** 
 
-![Source: @Vitay2014](../slides/img/Dopamine.png)
+![Source: @Vitay2014](img/Dopamine.png)
 
 
 :::
