@@ -7,7 +7,7 @@
 <link href="presentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="presentation_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="presentation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.1.251">
+  <meta name="generator" content="quarto-1.2.269">
 
   <meta name="author" content="Julien Vitay, Helge Ülo Dinkelbach, Fred Hamker">
   <title>ANNarchy</title>
@@ -424,13 +424,22 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="img/tuc-new-large.png" data-background-opacity="1" data-background-position="top" data-background-size="30%" class="center">
+<section id="title-slide" data-background-image="img/tuc-new-large.png" data-background-opacity="1" data-background-position="top" data-background-size="30%" class="quarto-title-block center">
   <h1 class="title">ANNarchy</h1>
   <p class="subtitle">Artificial Neural Networks architect</p>
-  <p class="author">Julien Vitay, Helge Ülo Dinkelbach, Fred Hamker</p>
-  <p class="institute"><em>Lab for Artificial Intelligence, Chemnitz University of Technology</em></p>
-</section>
 
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Julien Vitay, Helge Ülo Dinkelbach, Fred Hamker 
+</div>
+        <p class="quarto-title-affiliation">
+            <em>Lab for Artificial Intelligence, Chemnitz University of Technology</em>
+          </p>
+    </div>
+</div>
+
+</section>
 <section id="outline" class="title-slide slide level1 center">
 <h1>Outline</h1>
 <ol type="1">
@@ -1111,27 +1120,15 @@
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>recorded_r <span class="op">=</span> m.get(<span class="st">'r'</span>)</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>recorded_w <span class="op">=</span> n.get(<span class="st">'w'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-warning callout-captioned callout-style-default">
+<div class="callout callout-warning no-icon callout-style-simple">
 <div class="callout-body">
-<div class="callout-caption">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Warning</strong></p>
-</div>
 <div class="callout-content">
 <p>Calling <code>get()</code> flushes the underlying arrays.</p>
 </div>
 </div>
 </div>
-<div class="callout callout-warning callout-captioned callout-style-default">
+<div class="callout callout-warning no-icon callout-style-simple">
 <div class="callout-body">
-<div class="callout-caption">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Warning</strong></p>
-</div>
 <div class="callout-content">
 <p>Recording projections can quickly fill up the RAM…</p>
 </div>
@@ -1141,8 +1138,8 @@
 
 <section id="notebook-echo-state-network" class="title-slide slide level1 center">
 <h1>Notebook: Echo-State Network</h1>
-<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/RC.ipynb" target="_blank">RC.ipynb</a></p>
-<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/RC.ipynb" target="_blank">RC.ipynb</a></p>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/src/notebooks/RC.ipynb" target="_blank">RC.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/src/notebooks/RC.ipynb" target="_blank">RC.ipynb</a></p>
 <div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1195,8 +1192,8 @@
 
 <section id="notebook-ibcm-learning-rule" class="title-slide slide level1 center">
 <h1>Notebook: IBCM learning rule</h1>
-<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/BCM.ipynb" target="_blank">BCM.ipynb</a></p>
-<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/BCM.ipynb" target="_blank">BCM.ipynb</a></p>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/src/notebooks/BCM.ipynb" target="_blank">BCM.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/src/notebooks/BCM.ipynb" target="_blank">BCM.ipynb</a></p>
 <div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1212,8 +1209,8 @@
 <blockquote>
 <p>Miconi T. (2017). Biologically plausible learning in recurrent neural networks reproduces neural dynamics observed during cognitive tasks. eLife 6:e20899. doi:10.7554/eLife.20899</p>
 </blockquote>
-<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/Miconi.ipynb" target="_blank">Miconi.ipynb</a></p>
-<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/Miconi.ipynb" target="_blank">Miconi.ipynb</a></p>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/src/notebooks/Miconi.ipynb" target="_blank">Miconi.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/src/notebooks/Miconi.ipynb" target="_blank">Miconi.ipynb</a></p>
 <div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1277,8 +1274,8 @@
 
 <section id="notebook-adex-neuron---adaptive-exponential-integrate-and-fire" class="title-slide slide level1 center">
 <h1>Notebook: AdEx neuron - Adaptive exponential Integrate-and-fire</h1>
-<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/AdEx.ipynb" target="_blank">AdEx.ipynb</a></p>
-<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/AdEx.ipynb" target="_blank">AdEx.ipynb</a></p>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/src/notebooks/AdEx.ipynb" target="_blank">AdEx.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/src/notebooks/AdEx.ipynb" target="_blank">AdEx.ipynb</a></p>
 
 <img data-src="../img/adex.png" style="width:60.0%" class="r-stretch quarto-figure-center"><p><span class="math display">\tau \cdot \frac{dv (t)}{dt} = E_l - v(t) + g_\text{exc} (t) \, (E_\text{exc} - v(t)) + g_\text{inh} (t) \, (E_\text{inh} - v(t)) + I(t)</span></p>
 </section>
@@ -1344,15 +1341,15 @@
 
 <section id="notebook-synaptic-transmission" class="title-slide slide level1 center">
 <h1>Notebook: Synaptic transmission</h1>
-<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/SynapticTransmission.ipynb" target="_blank">SynapticTransmission.ipynb</a></p>
-<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/SynapticTransmission.ipynb" target="_blank">SynapticTransmission.ipynb</a></p>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/src/notebooks/SynapticTransmission.ipynb" target="_blank">SynapticTransmission.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/src/notebooks/SynapticTransmission.ipynb" target="_blank">SynapticTransmission.ipynb</a></p>
 
 <img data-src="../img/synaptictransmission.png" style="width:60.0%" class="r-stretch quarto-figure-center"></section>
 
 <section id="notebook-coba---conductance-based-ei-network" class="title-slide slide level1 center">
 <h1>Notebook: COBA - Conductance-based E/I network</h1>
-<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/CODA.ipynb" target="_blank">COBA.ipynb</a></p>
-<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/COBA.ipynb" target="_blank">COBA.ipynb</a></p>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/src/notebooks/CODA.ipynb" target="_blank">COBA.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/src/notebooks/COBA.ipynb" target="_blank">COBA.ipynb</a></p>
 <div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1390,8 +1387,8 @@
 
 <section id="notebook-stp" class="title-slide slide level1 center">
 <h1>Notebook: STP</h1>
-<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/STP.ipynb" target="_blank">STP.ipynb</a></p>
-<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/STP.ipynb" target="_blank">STP.ipynb</a></p>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/src/notebooks/STP.ipynb" target="_blank">STP.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/src/notebooks/STP.ipynb" target="_blank">STP.ipynb</a></p>
 
 <img data-src="../img/stp.png" class="r-stretch quarto-figure-center"></section>
 
@@ -1423,8 +1420,8 @@
 
 <section id="notebook-stdp" class="title-slide slide level1 center">
 <h1>Notebook: STDP</h1>
-<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/tutorial/notebooks/STDP.ipynb" target="_blank">STDP.ipynb</a></p>
-<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/tutorial/notebooks/STDP.ipynb" target="_blank">STDP.ipynb</a></p>
+<p>Download the Jupyter notebook: <a href="https://raw.githubusercontent.com/ANNarchy/tutorial/master/src/notebooks/STDP.ipynb" target="_blank">STDP.ipynb</a></p>
+<p>Run it directly on colab: <a href="https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/src/notebooks/STDP.ipynb" target="_blank">STDP.ipynb</a></p>
 <p><span class="math display">\tau^+ \, \frac{d x(t)}{dt} = -x(t)</span> <span class="math display">\tau^- \, \frac{d y(t)}{dt} = -y(t)</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1744,7 +1741,24 @@ Vitay, J., and Hamker, F. H. (2014). Timing and expectation of reward: <span>A</
         button.classList.add('code-copy-button-checked');
         var currentTitle = button.getAttribute("title");
         button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
         setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
           button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
@@ -1782,24 +1796,42 @@ Vitay, J., and Hamker, F. H. (2014). Timing and expectation of reward: <span>A</
           return note.innerHTML;
         });
       }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
       var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
       for (var i=0; i<bibliorefs.length; i++) {
         const ref = bibliorefs[i];
-        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-        tippyHover(ref, function() {
-          var popup = window.document.createElement('div');
-          cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
           });
-          return popup.innerHTML;
-        });
+        }
       }
     });
     </script>
