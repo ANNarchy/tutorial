@@ -4,7 +4,7 @@ title: Rate-coded networks
 
 ## Rate-coded networks
 
-In thus section, we will take as an example an **Echo-State Network** (ESN), the rate-coded variant of **reservoir computing** introduced by @Jaeger2001. ESNs are recurrent neural networks with fixed recurrent weights. A linear readout is usually able to apprximate any traget signal based on the dynamic recurrent activity.
+In this section, we will take as an example an **Echo-State Network** (ESN), the rate-coded variant of **reservoir computing** introduced by @Jaeger2001. ESNs are recurrent neural networks with fixed recurrent weights. A linear readout is usually able to approximate any target signal based on the dynamic recurrent activity.
 
 
 ![](img/rc.jpg)
@@ -43,11 +43,11 @@ ESN_Neuron = Neuron(
 All parameters used in the equations must be declared in the **Neuron** definition.
 
 ```python
-    parameters = """
-        tau = 30.0   : population   # Time constant
-        g = 1.0      : population   # Scaling
-        noise = 0.01 : population   # Noise level
-    """
+parameters = """
+    tau = 30.0   : population   # Time constant
+    g = 1.0      : population   # Scaling
+    noise = 0.01 : population   # Noise level
+"""
 ```
 Parameters can have one value per neuron in the population (default) or be common to all neurons (flag `population` or `projection`).
 
@@ -58,11 +58,11 @@ Parameters and variables are double floats by default, but the type can be speci
 Variables are evaluated at each time step **in the order of their declaration**, except for coupled ODEs.
 
 ```python
-    equations="""
-        tau * dx/dt + x = sum(in) + g * sum(exc) + noise * Uniform(-1, 1) : init=0.0
+equations="""
+    tau * dx/dt + x = sum(in) + g * sum(exc) + noise * Uniform(-1, 1) : init=0.0
 
-        r = tanh(x)
-    """
+    r = tanh(x)
+"""
 ```
 
 The output variable of a rate-coded neuron must be named `r`.
@@ -101,6 +101,7 @@ for(unsigned int i = 0; i < size; i++){
     r[i] = tanh(x[i]);
 }
 ```
+
 Several numerical methods are available:
 
 * Explicit (forward) Euler (default): 
@@ -220,6 +221,8 @@ for i in range(post.size):
 
 proj.connect_from_matrix(w)
 ```
+
+Sparse variant:
 
 ```python
 w = lil_matrix((pre.size, post.size))

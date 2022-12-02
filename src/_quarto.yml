@@ -49,6 +49,7 @@ website:
 format:
   html:
     theme: [sandstone, ../assets/webpage.scss]
+    toc: true
     page-layout: full
     smooth-scroll: true
     html-math-method: katex

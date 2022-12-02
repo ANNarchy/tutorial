@@ -5,7 +5,7 @@ title: ANNarchy
 
 ## Neuro-simulators
 
-There already exist several neuro-simulators for computational neuroscience, each which different levels of description (detailed, spiking, rate-coded, etc.) or supported hardware (CPU, GPU). 
+There already exist several neuro-simulators for computational neuroscience, each which different levels of description (multi-compartmental, spiking, rate-coded, etc.) or supported hardware (CPU, GPU). 
 
 
 Some simulators provide fixed libraries of neural and synaptic models:
@@ -13,7 +13,7 @@ Some simulators provide fixed libraries of neural and synaptic models:
 * **NEURON** <https://neuron.yale.edu/neuron/>
     * Multi-compartmental models, spiking neurons (CPU)
 * **GENESIS** <http://genesis-sim.org/>
-    * Multi-compartmental models, spiking neurons (CPU) -->
+    * Multi-compartmental models, spiking neurons (CPU) 
 * **NEST** <https://nest-initiative.org/>
     * Spiking neurons (CPU)
 * **GeNN** <https://genn-team.github.io/genn/>
@@ -22,7 +22,7 @@ Some simulators provide fixed libraries of neural and synaptic models:
     * Spiking neurons (CPU)
 
 
-Some rely instead on code generation:
+Some, such as ANNarchy,  rely instead on code generation, allowing virtual any model to be implemented:
 
 * **Brian** <https://briansimulator.org/>
     * Spiking neurons (CPU)

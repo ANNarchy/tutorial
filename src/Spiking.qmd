@@ -5,9 +5,9 @@ title: Spiking networks
 
 ## Spiking neurons
 
-Spiking neurons must also define two additional fields:
+Spiking neurons are defined with the same interface as rate-coded ones, but they must also define two additional fields:
 
-* `spike`: condition for emitting a spike.
+* `spike`: condition for emitting a spike (typically when the membrane potential exceeds a threshold).
 * `reset`: what happens after a spike is emitted (at the start of the refractory period).
 
 A refractory period in ms can also be specified.
@@ -157,7 +157,7 @@ Run it directly on colab: [STP.ipynb](https://colab.research.google.com/github/A
 
 ## Spike-Timing Dependent plasticity (STDP)
 
-`post_spike` similarly defines what happens when a post-synaptic spike is emitted.
+`post_spike` similarly defines what happens when a post-synaptic spike is emitted. This can be used to implement the event-driven version of STDP using traces.
 
 ```python
 STDP = Synapse(

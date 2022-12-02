@@ -295,9 +295,24 @@ div.csl-indent {
     </div>
 </nav>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#neuro-simulators" id="toc-neuro-simulators" class="nav-link active" data-scroll-target="#neuro-simulators">Neuro-simulators</a></li>
+  <li><a href="#annarchy-artificial-neural-networks-architect" id="toc-annarchy-artificial-neural-networks-architect" class="nav-link" data-scroll-target="#annarchy-artificial-neural-networks-architect">ANNarchy (Artificial Neural Networks architect)</a>
+  <ul class="collapse">
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#features" id="toc-features" class="nav-link" data-scroll-target="#features">Features</a></li>
+  <li><a href="#structure-of-a-script" id="toc-structure-of-a-script" class="nav-link" data-scroll-target="#structure-of-a-script">Structure of a script</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -318,7 +333,7 @@ div.csl-indent {
 
 <section id="neuro-simulators" class="level2">
 <h2 class="anchored" data-anchor-id="neuro-simulators">Neuro-simulators</h2>
-<p>There already exist several neuro-simulators for computational neuroscience, each which different levels of description (detailed, spiking, rate-coded, etc.) or supported hardware (CPU, GPU).</p>
+<p>There already exist several neuro-simulators for computational neuroscience, each which different levels of description (multi-compartmental, spiking, rate-coded, etc.) or supported hardware (CPU, GPU).</p>
 <p>Some simulators provide fixed libraries of neural and synaptic models:</p>
 <ul>
 <li><strong>NEURON</strong> <a href="https://neuron.yale.edu/neuron/" class="uri">https://neuron.yale.edu/neuron/</a>
@@ -327,7 +342,7 @@ div.csl-indent {
 </ul></li>
 <li><strong>GENESIS</strong> <a href="http://genesis-sim.org/" class="uri">http://genesis-sim.org/</a>
 <ul>
-<li>Multi-compartmental models, spiking neurons (CPU) –&gt;</li>
+<li>Multi-compartmental models, spiking neurons (CPU)</li>
 </ul></li>
 <li><strong>NEST</strong> <a href="https://nest-initiative.org/" class="uri">https://nest-initiative.org/</a>
 <ul>
@@ -342,7 +357,7 @@ div.csl-indent {
 <li>Spiking neurons (CPU)</li>
 </ul></li>
 </ul>
-<p>Some rely instead on code generation:</p>
+<p>Some, such as ANNarchy, rely instead on code generation, allowing virtual any model to be implemented:</p>
 <ul>
 <li><strong>Brian</strong> <a href="https://briansimulator.org/" class="uri">https://briansimulator.org/</a>
 <ul>

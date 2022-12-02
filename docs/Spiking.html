@@ -292,9 +292,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
 </nav>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#spiking-neurons" id="toc-spiking-neurons" class="nav-link active" data-scroll-target="#spiking-neurons">Spiking neurons</a></li>
+  <li><a href="#conductances-currents" id="toc-conductances-currents" class="nav-link" data-scroll-target="#conductances-currents">Conductances / currents</a></li>
+  <li><a href="#short-term-plasticity-stp" id="toc-short-term-plasticity-stp" class="nav-link" data-scroll-target="#short-term-plasticity-stp">Short-term plasticity (STP)</a>
+  <ul class="collapse">
+  <li><a href="#spike-timing-dependent-plasticity-stdp" id="toc-spike-timing-dependent-plasticity-stdp" class="nav-link" data-scroll-target="#spike-timing-dependent-plasticity-stdp">Spike-Timing Dependent plasticity (STDP)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -315,9 +328,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="spiking-neurons" class="level2">
 <h2 class="anchored" data-anchor-id="spiking-neurons">Spiking neurons</h2>
-<p>Spiking neurons must also define two additional fields:</p>
+<p>Spiking neurons are defined with the same interface as rate-coded ones, but they must also define two additional fields:</p>
 <ul>
-<li><code>spike</code>: condition for emitting a spike.</li>
+<li><code>spike</code>: condition for emitting a spike (typically when the membrane potential exceeds a threshold).</li>
 <li><code>reset</code>: what happens after a spike is emitted (at the start of the refractory period).</li>
 </ul>
 <p>A refractory period in ms can also be specified.</p>
@@ -462,7 +475,7 @@ Notebook: STP
 </div>
 <section id="spike-timing-dependent-plasticity-stdp" class="level2">
 <h2 class="anchored" data-anchor-id="spike-timing-dependent-plasticity-stdp">Spike-Timing Dependent plasticity (STDP)</h2>
-<p><code>post_spike</code> similarly defines what happens when a post-synaptic spike is emitted.</p>
+<p><code>post_spike</code> similarly defines what happens when a post-synaptic spike is emitted. This can be used to implement the event-driven version of STDP using traces.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>STDP <span class="op">=</span> Synapse(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    parameters <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">        tau_plus = 20.0 : projection ; tau_minus = 20.0 : projection</span></span>
