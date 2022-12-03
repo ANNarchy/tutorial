@@ -103,7 +103,7 @@ A neuro-computational model in ANNarchy is composed of:
 2. Several **projections** between the populations, that can implement specific **synapse** models.
 3. **Monitors** to record what is happening during a simulation.
 
-![](img/drawing.svg){width=80%}
+![](img/annarchy-color.png){width=80%}
 
 The following script provides the basic structure of a model. First, the neuron and synapse models have to be defined using the equation-oriented interface. Populations are then created and connected with each other using projections. The network can then be generated and compiled, before the simulation can start. 
 
