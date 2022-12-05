@@ -620,6 +620,12 @@ for(unsigned int i = 0; i < size; i++){
     tau * dx/dt + x = I : midpoint
     ```
 
+    * Runge-Kutta (RK4): 
+    
+    ```python
+    tau * dx/dt + x = I : runge-kutta4
+    ```
+
     * Event-driven (spiking synapses): 
     
     ```python
@@ -1025,7 +1031,7 @@ Run it directly on colab: [SynapticTransmission.ipynb](https://colab.research.go
 
 # Notebook: COBA - Conductance-based E/I network
 
-Download the Jupyter notebook: [COBA.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/src/notebooks/CODA.ipynb){target="_blank"}
+Download the Jupyter notebook: [COBA.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/src/notebooks/COBA.ipynb){target="_blank"}
 
 Run it directly on colab: [COBA.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/src/notebooks/COBA.ipynb){target="_blank"}
 
@@ -1033,7 +1039,7 @@ Run it directly on colab: [COBA.ipynb](https://colab.research.google.com/github/
 ![](../img/COBA.png){width=40%}
 :::
 
-$$\tau \cdot \frac{dv (t)}{dt} = E_l - v(t) + g_\text{exc} (t) \, (E_\text{exc} - v(t)) + g_\text{inh} (t) \, (E_\text{inh} - v(t)) + I(t)$$
+$$\tau \, \frac{dv (t)}{dt} = E_l - v(t) + g_\text{exc} (t) \, (E_\text{exc} - v(t)) + g_\text{inh} (t) \, (E_\text{inh} - v(t)) + I(t)$$
 
 
 

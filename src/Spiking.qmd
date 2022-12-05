@@ -110,7 +110,7 @@ Run it directly on colab: [SynapticTransmission.ipynb](https://colab.research.go
 ::: {.callout-tip}
 ## Notebook: COBA - Conductance-based E/I network
 
-Download the Jupyter notebook: [COBA.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/src/notebooks/CODA.ipynb){target="_blank"}
+Download the Jupyter notebook: [COBA.ipynb](https://raw.githubusercontent.com/ANNarchy/tutorial/master/src/notebooks/COBA.ipynb){target="_blank"}
 
 Run it directly on colab: [COBA.ipynb](https://colab.research.google.com/github/ANNarchy/tutorial/blob/master/src/notebooks/COBA.ipynb){target="_blank"}
 

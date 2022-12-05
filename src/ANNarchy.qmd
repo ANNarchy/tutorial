@@ -5,7 +5,7 @@ title: ANNarchy
 
 ## Neuro-simulators
 
-There already exist several neuro-simulators for computational neuroscience, each which different levels of description (multi-compartmental, spiking, rate-coded, etc.) or supported hardware (CPU, GPU). 
+There already exist several neuro-simulators for computational neuroscience, each focusing on different levels of description (multi-compartmental, spiking, rate-coded, etc.) or supported hardware (CPU, GPU). 
 
 
 Some simulators provide fixed libraries of neural and synaptic models:

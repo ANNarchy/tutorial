@@ -128,6 +128,12 @@ tau * dx/dt + x = I : exponential
 tau * dx/dt + x = I : midpoint
 ```
 
+* Runge-Kutta (RK4): 
+
+```python
+tau * dx/dt + x = I : runge-kutta4
+```
+
 * Event-driven (spiking synapses): 
 
 ```python
