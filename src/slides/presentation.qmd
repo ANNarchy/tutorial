@@ -256,7 +256,7 @@ $$
 
 * Populations of neurons can be combined in functional **neuro-computational models** learning to solve various tasks.
 
-* Need to implement one (or more) equations per neuron and synapse (thousands of neurons, millions of synapses..).
+* Need to implement one (or more) equations per neuron and synapse. There can thousands of neurons and millions of synapses, see @Teichmann2021.
 
 ::: {.columns}
 ::: {.column width=33%}

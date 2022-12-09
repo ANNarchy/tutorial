@@ -121,7 +121,7 @@ The **Oja** learning rule [@Oja1982] allows to limit infinite weight growth:
 $$\frac{dw}{dt}= \eta \, r^\text{pre} \, r^\text{post} - \alpha \, (r^\text{post})^2 \, w$$
 
 
-With rate-ocded networks, you can use virtually anything virtually any learning rule depending only on the pre- and post-synaptic firing rates, e.g. in @Vitay2010:
+With rate-coded networks, you can use virtually anything virtually any learning rule depending only on the pre- and post-synaptic firing rates, e.g. in @Vitay2010:
 
 
 $$\begin{aligned}
@@ -151,19 +151,24 @@ STDP can be implemented online using traces. More complex variants of STDP (trip
 
 ## Neuro-computational models
 
-Populations of neurons can be combined in functional **neuro-computational models** learning to solve various tasks. They require to implement one (or more) equations per neuron and synapse (thousands of neurons, millions of synapses..).
+Populations of neurons can be combined in functional **neuro-computational models** learning to solve various tasks. They require to implement one (or more) equations per neuron and synapse. There can easily be thousands of neurons and millions of synapses...
 
 Here are some recent examples for our lab:
 
+**Visual cortex**
+
+![Source: @Teichmann2021](img/vision.png){width=70%}
+
+
 ::: {.columns}
-::: {.column width=33%}
+::: {.column width=35%}
 
 **Basal Ganglia** 
 
 ![Source: @Villagrasa2018](img/BG.png)
 
 ::: 
-::: {.column width=33%}
+::: {.column width=35%}
 
 
 **Hippocampus** 
@@ -171,7 +176,7 @@ Here are some recent examples for our lab:
 ![Source: @Goenner2017](img/Hippocampus.png)
 
 :::
-::: {.column width=33%}
+::: {.column width=30%}
 
 **Dopaminergic system** 
 
